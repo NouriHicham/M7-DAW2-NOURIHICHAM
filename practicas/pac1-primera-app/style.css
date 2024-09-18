@@ -1,0 +1,71 @@
+header{
+    display: flex;
+    justify-content: center;
+    background-color: #23232A;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    background-color: #23232A;
+}
+
+footer p{
+    color: white;
+}
+
+h1{
+    color: white;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+main img{
+    border-radius: 100px;
+    height: 150px;
+}
+
+.imagenMia{
+    margin-right: 50px;
+}
+
+.titulo{
+    margin: 70px 0 0 20px;
+}
+
+p{
+    font-family: sans-serif;
+}
+
+h1{
+    font-family: sans-serif;
+}
+
+h2{
+    font-family: sans-serif;
+}
+
+.fechaa{
+    display: flex;
+}
+
+.fechaa :first-child{
+    margin-right: 5px;
+}
+
+.prueba{
+    margin-top: 10px;
+    margin-left: 3px;
+}
+
+.prueba a{
+    color: black;
+    text-decoration: underline;
+    font-size: 15px;
+    font-family: sans-serif;
+}

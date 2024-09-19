@@ -9,7 +9,7 @@
 <body>
     <h1>Exercici 1: Nombres parells entre 50 i 500</h1>
 
-    <div>Los siguientes numeros son pares</div>
+    <h2>Los siguientes numeros son pares</h2>
     <?php
         //comienza num en 50 hasta que llegues a 501
         echo "<div class='caja'>";

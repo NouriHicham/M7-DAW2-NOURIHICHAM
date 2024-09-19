@@ -16,7 +16,7 @@
         if($resto==0){
             echo "<div class='individual random'>El numero {$random} es par</div>";
         }else{
-
+            echo "<div class='individual random'>El numero {$random} es impar</div>";
         }
     ?>
 

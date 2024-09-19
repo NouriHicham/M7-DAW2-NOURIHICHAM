@@ -43,3 +43,54 @@ body{
 a{
     text-decoration: none;
 }
+
+.temp{
+    border: 1px solid;
+    border-radius: 5px;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px 40px 15px 40px;
+    margin: 6px;
+    min-width: 35px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.frio{
+    background-color: rgb(34, 145, 196);
+    border-color: white;
+}
+
+.calor{
+    background-color: rgb(221, 50, 50);
+    border-color: white;
+}
+
+.suau{
+    background-color: rgb(231, 174, 49);
+    border-color: white;
+}
+
+.bonito div{
+    margin-bottom: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.bonito div a{
+    color: black;
+}
+
+.bonito div a:hover{
+    color: gray;
+    font-weight: bold;
+}
+
+h1{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 100;
+}
+
+h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}

@@ -1,0 +1,45 @@
+body{
+    margin: auto;
+    width: 1300px;
+}
+
+.caja{
+    display: flex;
+    width: 1300px;
+    flex-wrap: wrap;
+}
+
+.individual{
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: lightgray;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    margin: 6px;
+    min-width: 35px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mult{
+    margin-top: 5px;
+}
+
+.random{
+    max-width: 200px;
+}
+
+.volver{
+    border: 1px solid;
+    background-color: rgb(53, 53, 53);
+    margin-top: 20px;
+    padding: 10px;
+    width: 70px;
+    text-align: center;
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}

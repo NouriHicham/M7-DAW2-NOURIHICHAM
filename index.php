@@ -16,6 +16,19 @@ function sayHello($name) {
 	<head>
 		<title>Visual Studio Code Remote :: PHP</title>
 	</head>
+	<h1>Todo</h1>
+	<ul>
+		<li><a href="practicas/pac1-primera-app/hola.php">pac1-primera-app</a></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
 	<body>
 		<?php 
 		

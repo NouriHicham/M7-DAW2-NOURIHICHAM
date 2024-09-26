@@ -8,9 +8,44 @@
         .table-green{
             background-color: #c6f5d2;
         }
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: end;
+            margin: 10px;
+            
+        }
     </style>
 </head>
-<body>
+<body style="
+<?php
+    if(isset($_GET["color"])){
+        $color = $_GET["color"];
+
+        echo "background-color: $color";
+    }
+?>
+
+">
+    <header>
+        <?php
+            $colores = ["red", "blue", "green", "yellow", "orange", "pink"];
+
+            if(isset($_GET["seleccion"]) && isset($_GET["color"])){
+                $select = $_GET["seleccion"];
+                $color = $_GET["color"];
+                
+                for($i=0;$i<count($colores);$i++){
+                    echo '<a href="pac3extra.php?seleccion='.$select.'&color='.$colores[$i].'"><button style="margin: 0 5px 0 5px; width: 25px; height:25px; border: 1px solid; background-color: '.$colores[$i].';"></button></a>';
+                }
+                
+            }
+
+            
+
+        ?>
+        
+    </header>
     <div class="container mt-5">
         <h1 class="text-center">Selecciona tu fruta favorita</h1>
 
@@ -51,7 +86,7 @@
                         echo '<tr class="'.$color.'">
                                 <td>'.$fruta["nom"].'</td>
                                 <td>'.$seleccionar.'</td>
-                                <td><a class="btn btn-primary" href="pac3b.php?seleccion='.$fruta["nom"].'">Seleccionar</a></td>
+                                <td><a class="btn btn-primary" href="pac3extra.php?seleccion='.$fruta["nom"].'&color=white">Seleccionar</a></td>
                             </tr>';
                     }
                 ?>

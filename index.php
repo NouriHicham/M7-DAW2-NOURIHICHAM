@@ -19,15 +19,16 @@ function sayHello($name) {
 	<h1>Todo</h1>
 	<ul>
 		<li><a href="practicas/pac1-primera-app/hola.php">pac1-primera-app</a></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
+		<li><a href="">pac2-bucles-co</a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
+		<li><a href=""></a></li>
 	</ul>
 	<body>
 		<?php 

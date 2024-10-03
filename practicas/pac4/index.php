@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.72.0">
-  <title>Album example · Bootstrap</title>
+  <title>Practica 4 - Peliculas</title>
 
   <link rel="canonical" href="https://v5.getbootstrap.com/docs/5.0/examples/album/">
 
@@ -100,9 +100,10 @@
                                 <p class="card-text">'.$pelicula["sinopsi"].'</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="detall.php?nom='.$pelicula["nom"].'"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                                    <a href="detall.php?nom='.$pelicula["nom"].'"><button type="button" class="btn btn-sm btn-outline-secondary">Info</button></a>
+                                    <a href="trailer.php?nom='.$pelicula["nom"].'"><button type="button" class="btn btn-sm btn-outline-secondary">Trailer</button></a>
                                 </div>
-                                <small class="text-muted">9 mins</small>
+                                <small class="text-muted">Duración: '.$pelicula["durada"].'</small>
                                 </div>
                             </div>
                             </div>
@@ -110,7 +111,7 @@
                 }
             ?>
 
-            ?>
+  
 
           
         </div>
@@ -118,17 +119,6 @@
     </div>
 
   </main>
-
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-right mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-          href="/docs/5.0/getting-started/introduction/">getting started guide</a>.</p>
-    </div>
-  </footer>
 
 </body>
 

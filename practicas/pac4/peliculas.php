@@ -15,6 +15,10 @@ $peliculas = [
         'qualificacio' => '+18',
         'genere' => 'Thriller, Terror, Crimen',
         'url_trailer' => 'https://www.youtube.com/embed/6iB21hsprAQ?si=1qm79vybDR55QVAS',
+        'estrelles' => '4',
+        'carrusel' => 'https://s2.ppllstatics.com/elcorreo/www/multimedia/202101/28/media/cortadas/Silencio-Anthony_Hopkins-k95B-U130354926801gOG-1248x770@RC.jpg',
+        'carrusel2' => 'https://valenciaplaza.com/public/Image/2016/1/silenciodeloscorderos_NoticiaAmpliada.jpg',
+        'carrusel3' => 'https://hips.hearstapps.com/hmg-prod/images/el-silencio-de-los-corderos-fotogramas-4-1611258199.jpg'
     ],
     [
         'nom' => 'Pulp Fiction',
@@ -31,6 +35,10 @@ $peliculas = [
         'qualificacio' => '+18',
         'genere' => 'Acció, Drama, Crimen',
         'url_trailer' => 'https://www.youtube.com/embed/tGpTpVyI_OQ?si=A4ORZDNXpKvN5V3H',
+        'estrelles' => '3',
+        'carrusel' => 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2023/07/pulp-fiction-3089782.jpg?tf=3840x',
+        'carrusel2' => 'https://estaticos-cdn.prensaiberica.es/clip/414ef4bf-a18f-42ea-8b34-0ccb1a891c0b_16-9-aspect-ratio_default_0.jpg',
+        'carrusel3' => 'https://www.slashfilm.com/img/gallery/is-pulp-fiction-2-happening-what-quentin-tarantino-has-said-over-the-years/intro-1694555607.jpg'
     ],
     [
         'nom' => 'La lista de Schindler',
@@ -47,6 +55,10 @@ $peliculas = [
         'qualificacio' => '+16',
         'genere' => 'Drama, Història',
         'url_trailer' => 'https://www.youtube.com/embed/7q-ETFeMxwI?si=Ujmijp6XKylEPcL8',
+        'estrelles' => '1',
+        'carrusel' => 'https://estaticosgn-cdn.deia.eus/clip/01b656ec-2873-494d-92bc-2dff8005b3fb_16-9-aspect-ratio_default_0.jpg',
+        'carrusel2' => 'https://www.clarin.com/2016/02/05/HkemCefkVl_720x0.jpg',
+        'carrusel3' => 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2017/06/schindler-s-list-original31.jpg?tf=3840x'
     ],
     [
         'nom' => 'Forrest Gump',
@@ -63,6 +75,10 @@ $peliculas = [
         'qualificacio' => '+13',
         'genere' => 'Drama, Comèdia, Romance',
         'url_trailer' => 'https://www.youtube.com/embed/Cyh1LpxnaxI?si=OWY-VDhOBNmiyoba',
+        'estrelles' => '5',
+        'carrusel' => 'https://media.gq.com.mx/photos/5cb4b51f7a6d0e42a6c6e29a/16:9/w_2560%2Cc_limit/forrest.jpg',
+        'carrusel2' => 'https://i.ytimg.com/vi/Cyh1LpxnaxI/maxresdefault.jpg',
+        'carrusel3' => 'https://laopinion.com/wp-content/uploads/sites/3/2020/07/Forrest-Gump-running-ftr1.jpg?w=4096'
     ],
     [
         'nom' => 'Matrix',
@@ -78,7 +94,11 @@ $peliculas = [
         'repartiment' => 'Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss',
         'qualificacio' => '+16',
         'genere' => 'Acció, Ciència-Ficció',
-        'url_trailer' => 'https://www.youtube.com/watch?v=vKQi3bBA1y8',
+        'url_trailer' => 'https://www.youtube.com/embed/vKQi3bBA1y8?si=qBgy_LvC-Y2vuaVK',
+        'estrelles' => '4',
+        'carrusel' => 'https://i.blogs.es/3bbc27/matrix1/1366_2000.jpg',
+        'carrusel2' => 'https://phantom-elmundo.unidadeditorial.es/3b043128aa9ad1d1028455e58f612878/crop/0x83/1920x1363/resize/1200/f/webp/assets/multimedia/imagenes/2024/02/20/17084292985211.jpg',
+        'carrusel3' => 'https://i.ytimg.com/vi/ECamB0bcQsY/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAScDePFL2NYMUQVuJh46vz-aaV_g'
     ],
     [
         'nom' => 'Gladiator',
@@ -94,7 +114,11 @@ $peliculas = [
         'repartiment' => 'Russell Crowe, Joaquin Phoenix, Connie Nielsen',
         'qualificacio' => '+16',
         'genere' => 'Acció, Drama, Història',
-        'url_trailer' => 'https://www.youtube.com/watch?v=P5ieIbInFpg',
+        'url_trailer' => 'https://www.youtube.com/embed/P5ieIbInFpg?si=av6elmRTBe329VQO',
+        'estrelles' => '5',
+        'carrusel' => 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2024/07/paul-mescal-gladiator-ii-3684825.jpg?tf=3840x',
+        'carrusel2' => 'https://filasiete.com/wp-content/uploads/2024/04/gladiator2.jpg',
+        'carrusel3' => 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2024/07/gladiator-ii-2024-3733672.jpg?tf=3840x'
     ],
     [
         'nom' => 'El gran Lebowski',
@@ -110,7 +134,11 @@ $peliculas = [
         'repartiment' => 'Jeff Bridges, John Goodman, Julianne Moore',
         'qualificacio' => '+18',
         'genere' => 'Comèdia, Crimen',
-        'url_trailer' => 'https://www.youtube.com/watch?v=AkA69XT7Lq0',
+        'url_trailer' => 'https://www.youtube.com/embed/AkA69XT7Lq0?si=q0Ij96h8-hr_18yL',
+        'estrelles' => '1',
+        'carrusel' => 'https://hips.hearstapps.com/hmg-prod/images/el-gran-lebowski-bolera-1520464058.png',
+        'carrusel2' => 'https://es.web.img3.acsta.net/r_1280_720/pictures/14/12/09/10/17/572032.jpg',
+        'carrusel3' => 'https://crm.cinemateca.org.uy/media/films/screen_shot_2019-06-25_at_9.37.47_am.png'
     ],
     [
         'nom' => 'Inception',
@@ -126,7 +154,11 @@ $peliculas = [
         'repartiment' => 'Leonardo DiCaprio, Joseph Gordon-Levitt, Elliot Page',
         'qualificacio' => '+13',
         'genere' => 'Acció, Ciència-Ficció, Thriller',
-        'url_trailer' => 'https://www.youtube.com/watch?v=YoHD9XEInc0',
+        'url_trailer' => 'https://www.youtube.com/embed/YoHD9XEInc0?si=ue-fTGe7RdF7oA-H',
+        'estrelles' => '3',
+        'carrusel' => 'https://revistamutaciones.com/wp-content/uploads/2020/06/origen-inception-christopher-nolan-mutaciones-1.jpg',
+        'carrusel2' => 'https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/peliculas/origen/galeria/3947111-4-esl-ES/Origen.jpg?crop=1xw:0.84375xh;center,top',
+        'carrusel3' => 'https://www.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2014/06/346454-cine-ciencia-ficcion-critica-origen.jpg'
     ],
     [
         'nom' => 'El padrino',
@@ -142,7 +174,11 @@ $peliculas = [
         'repartiment' => 'Marlon Brando, Al Pacino, James Caen',
         'qualificacio' => '+18',
         'genere' => 'Drama, Mafia, Crimen',
-        'url_trailer' => 'https://www.youtube.com/watch?v=v72XprPxy3E',
+        'url_trailer' => 'https://www.youtube.com/embed/v72XprPxy3E?si=-u1LXxsdS96Oo73S',
+        'estrelles' => '5',
+        'carrusel' => 'https://hyperbole.es/wp-content/uploads/2022/08/5OLYQAVEZBGMRLRWDIDUFBPUOI.jpg',
+        'carrusel2' => 'https://media.revistagq.com/photos/5fc769f1be088082688e995b/16:9/w_2560%2Cc_limit/GettyImages-607408946.jpg',
+        'carrusel3' => 'https://hips.hearstapps.com/hmg-prod/images/gettyimages-131290713-1502182803.jpg?crop=1xw:1xh;center,top&resize=980:*'
     ]
 ];
 

@@ -61,6 +61,24 @@
     }
 
     echo generarEnlaceDescarga("foto.jpg");
+    echo "<br>";
+    
+    //8. Calcular descuento aplicado
+    function calcularDescuento($precioOriginal, $descuento){
+        $precioFinal = $precioOriginal-($precioOriginal*$descuento);
+        return 'Total: '.$precioFinal.' €';
+    }
 
+    echo calcularDescuento(15, 0.20);
+    echo "<br>";
+
+    //9. Conversión de horas a minutos
+    function convertirHorasMinutos($horas){
+        $minutos = $horas * 60;
+        return ''.$minutos.' minutos';
+    }
+
+    echo convertirHorasMinutos(2);
+    echo "<br>";
 
 ?>

@@ -23,9 +23,21 @@
         <!-- DNI -->
         <!-- CÓDIGO DE SOCIO -->
         <!-- CORREO ELECTRÓNICO -->
-         <form action="index.php" method="post">
-            
-         </form>
+        <form action="index.php" method="post">
+            <div class="input-group mb-2">
+                <span class="input-group-text">Nombre</span>
+                <input name="name" type="text" value="Hicham" aria-label="First name" class="form-control" >
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="inputGroup-sizing-default">Telefono</span>
+                <input name="tlf" type="text" value="633333333" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text" id="inputGroup-sizing-default">Url foto</span>
+                <input name="url_img" type="text" value="https://this-person-does-not-exist.com/img/avatar-genf9e6431f1098207985f6dd8498116b46.jpg" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+            </div>
+            <button type="submit" class="btn btn-secondary">Enviar</button>
+        </form>
     </div>
 </div>
 

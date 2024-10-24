@@ -9,7 +9,13 @@
 <body>
 
 <?php
-    // Incluimos los componentes
+    $nombre = $_POST['name'];
+    $tlf = $_POST['tlf'];
+    $url_img = $_POST['url_img'];
+
+    include_once "includes/header.php";
+    include_once "includes/funciones.php";
+    include_once "data/productos.php";
 ?>
 
 <div class="container">
@@ -17,6 +23,9 @@
     <div>
         <h2>Productos disponibles</h2>
         <!-- aqui va la tabla de productos -->
+         <?php
+            generarTablaProductos($productos);
+         ?>
     </div>
 
     <!-- aqui incluye los datos de contacto del cliente con un toast live -->
@@ -35,6 +44,9 @@
                 </div>
                 <div class="modal-body">
                     <!-- AQUI VA LA INFORMACIÓN DE CONTACTO -->
+                     <?php
+                        muestraInfoContacto($nombre, $tlf, $url_img);
+                     ?>
                 </div>
             </div>
         </div>
@@ -45,7 +57,9 @@
         <!-- AQUI LA LISTA DE PRODUCTOS -->
     </div>
 
-    <!-- aqui va un footer -->
+<?php
+    include_once "includes/footer.php";
+?>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

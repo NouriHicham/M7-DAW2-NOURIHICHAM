@@ -10,8 +10,6 @@
     </select> -->
     <br><br>
 
-
-
     <label for="opcion-1">
         <input type="checkbox" value="Manzana" id="opcion-1" name="frutas[]">Manzana
     </label>
@@ -24,9 +22,6 @@
     <label for="opcion-4">
         <input type="checkbox" value="Sandia" id="opcion-4" name="frutas[]">Sandia
     </label>
-
-
-
 
     <button type="submit">Enviar</button>
 

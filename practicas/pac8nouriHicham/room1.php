@@ -1,15 +1,11 @@
 <?php
 session_start();
 
-$_SESSION['name'] = $_POST['name'];
-$_SESSION['ap1'] = $_POST['ap1'];
-$_SESSION['ap2'] = $_POST['ap2'];
-
-if(!isset($_SESSION['numQuiz'])){
-   $_SESSION['numQuiz'] = 0;
-}else if($_SESSION['numQuiz'] == 3){
-   header('Location: felicitacio.php');
+if ($_SESSION["i"] == 3) {
+   header("Location: ");
 }
+
+var_dump($_SESSION['avatar']);
 
 ?>
 <!DOCTYPE html>
@@ -23,43 +19,21 @@ if(!isset($_SESSION['numQuiz'])){
 </head>
 
 <body>
+
+   <?php include_once 'includes/header.php'; ?>
+
    <section class="container">
-      <h2 style="margin-top: 20px;">Test Fácil</h2>
-      <?php
-         include_once 'quiz.php';
+      <form action="room1.php" method="post">
+         <?php
+         if ($_SESSION['dificultad'] == "easy") {
+            include 'includes/facil.php';
+         } else if ($_SESSION['dificultad'] == "medium") {
+            include 'includes/medio.php';
+         } else if ($_SESSION['dificultad'] == "hard") {
+            include 'includes/dificil.php';
+         }
 
-            $i = $_SESSION['numQuiz'];
-
-            echo '
-               <h4>'.$quizFacil[$i]['pregunta']. '</h4>
-               <form action="" method="post">
-                  <div class="form-check">
-                     <input class="form-check-input" type="radio" name="respuesta" id="respuesta1">
-                     <label class="form-check-label" for="respuesta1">
-                        ' . $quizFacil[$i]['respuestas'][0] . '
-                     </label>
-                  </div>
-                  <div class="form-check">
-                     <input class="form-check-input" type="radio" name="respuesta" id="respuesta2">
-                     <label class="form-check-label" for="respuesta2">
-                        ' . $quizFacil[$i]['respuestas'][1] . '
-                     </label>
-                  </div>
-                  <div class="form-check">
-                     <input class="form-check-input" type="radio" name="respuesta" id="respuesta3">
-                     <label class="form-check-label" for="respuesta3">
-                        ' . $quizFacil[$i]['respuestas'][2] . '
-                     </label>
-                  </div>
-                  <div class="form-check">
-                     <input class="form-check-input" type="radio" name="respuesta" id="respuesta4">
-                     <label class="form-check-label" for="respuesta4">
-                        ' . $quizFacil[$i]['respuestas'][3] . '
-                     </label>
-                  </div>  
-            ';
-            
-      ?>
+         ?>
          <div class="col-12">
             <button class="btn btn-primary" type="submit" style="margin-top: 10px;">Enviar</button>
          </div>

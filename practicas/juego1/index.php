@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de la Ruleta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
-        .imagen{
+        .imagen {
             animation: rotate-animation 2.5s linear infinite;
         }
 
-        @keyframes rotate-animation{
-            from{
+        @keyframes rotate-animation {
+            from {
                 transform: rotate(0deg);
             }
-            to{
+
+            to {
                 transform: rotate(360deg);
             }
-                
+
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="container" style="margin: 50px 0;">
@@ -36,12 +39,12 @@
         </p>
         <div class="collapse" id="collapseExample">
             <div class="card border-0">
-            <?php
+                <?php
                 include_once "includes/tabla.php"
-            ?>
+                ?>
             </div>
         </div>
-            
+
         <form action="apuesta.php" method="post">
             <label for="tipoApuesta">Tipo de apuesta</label>
             <select class="form-select" id="tipoApuesta" name="tipoApuesta">
@@ -78,43 +81,72 @@
         </form>
     </div>
     <script>
-
-        function numerosContiguos(num){
-            let arrayIzq = [4,7,10,13,16,19,22,25,28,31]
-            let arrayMed = [5,8,11,14,17,20,23,26,29,32]
-            let arrayDer = [6,9,12,15,18,21,24,27,30,33]
+        function numerosContiguos(num) {
+            let arrayIzq = [4, 7, 10, 13, 16, 19, 22, 25, 28, 31]
+            let arrayMed = [5, 8, 11, 14, 17, 20, 23, 26, 29, 32]
+            let arrayDer = [6, 9, 12, 15, 18, 21, 24, 27, 30, 33]
             let arrayNum = []
 
-            if(arrayIzq.includes(num)==true){
+            if (arrayIzq.includes(num) == true) {
                 arrayNum.push(num + 1)
                 arrayNum.push(num + 3)
                 arrayNum.push(num - 3)
+            } else if (arrayMed.includes(num) == true) {
+                arrayNum.push(num + 1)
+                arrayNum.push(num - 1)
+                arrayNum.push(num + 3)
+                arrayNum.push(num - 3)
+            } else if (arrayDer.includes(num) == true) {
+                arrayNum.push(num - 1)
+                arrayNum.push(num + 3)
+                arrayNum.push(num - 3)
+            } else if (num == 1) {
+                arrayNum.push(num + 1)
+                arrayNum.push(num + 3)
+            } else if (num == 2) {
+                arrayNum.push(num + 1)
+                arrayNum.push(num - 1)
+                arrayNum.push(num + 3)
+            } else if (num == 3) {
+                arrayNum.push(num - 1)
+                arrayNum.push(num + 3)
+            } else if (num == 34) {
+                arrayNum.push(num + 1)
+                arrayNum.push(num - 3)
+            } else if (num == 35) {
+                arrayNum.push(num + 1)
+                arrayNum.push(num - 1)
+            } else if (num == 36) {
+                arrayNum.push(num - 1)
+                arrayNum.push(num - 3)
+            } else {
+                arrayNum.push(0)
             }
 
             return arrayNum
         }
 
-        document.querySelector("#tipoApuesta").addEventListener("change", function(){
+        document.querySelector("#tipoApuesta").addEventListener("change", function() {
             //console.log(document.querySelector("#tipoApuesta").value)
 
             let cambioApuesta = document.querySelector("#cambiarApuesta")
 
             cambioApuesta.innerHTML = `<label for="queApuesta">¿A que apuestas?</label>`
-            switch (document.querySelector("#tipoApuesta").value){
+            switch (document.querySelector("#tipoApuesta").value) {
                 case "0":
                     //Roig/Negre
-                    cambioApuesta.innerHTML +=    `<select class="form-select" id="queApuesta" name="queApuesta">
+                    cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                         <option selected>Seleccione un opción</option>
-                                                        <option value="roig">Roig</option>
-                                                        <option value="negre">Negre</option>
+                                                        <option value="rojo">Rojo</option>
+                                                        <option value="negro">Negro</option>
                                                     </select>`
                     break;
                 case "1":
                     //parell/imparell
-                    cambioApuesta.innerHTML +=    `<select class="form-select" id="queApuesta" name="queApuesta">
+                    cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                         <option selected>Seleccione un opción</option>
-                                                        <option value="parell">Parell</option>
-                                                        <option value="imparell">Imparell</option>
+                                                        <option value="par">Par</option>
+                                                        <option value="impar">Impar</option>
                                                     </select>`
                     break;
                 case "2":
@@ -162,7 +194,6 @@
                                                     <option selected>Seleccione una opción</option>
                                                     <option value="dosColumnes1">Columna 1 i 2</option>
                                                     <option value="dosColumnes2">Columna 2 i 3</option>
-                                                    <option value="dosColumnes3">Columna 1 i 3</option>
                                                 </select>`;
                     break;
                 case "8":
@@ -211,18 +242,22 @@
 
                     cambioApuesta.innerHTML += `<input type="number" class="form-control" id="caballo" name="queApuesta" min="1" max="36">`;
 
-                    document.querySelector("#caballo").addEventListener('input', function(){
-                        document.querySelector("#numCaballo").innerHTML = ` <label for="numCaballo">Seleccione un numero contiguo.</label>
-                                                                            <select class="form-select" id="queApuesta" name="queApuesta">
-                                                                                <option selected>Seleccione una numero contiguo</option>`;
-
+                    document.querySelector("#caballo").addEventListener('input', function() {
+                        //paso el numero del primer input a la funcion numerosContiguos para crear una array con todos los numeros que podra elegir
                         let arraynumeros = numerosContiguos(parseInt(document.querySelector("#caballo").value))
+
+                        let select = ` <label for="numCaballo">Seleccione un numero contiguo.</label>
+                                        <select class="form-select" id="queApuesta" name="queApuesta">
+                                        <option selected>Seleccione una numero contiguo</option>`;
+
                         //console.log(arraynumeros)
 
-                        for(let i=0;i<arraynumeros.length;i++){
-                            document.querySelector("#numCaballo").innerHTML += `<option value="caballo${i}">${arraynumeros[i]}</option>`
+                        for (let i = 0; i < arraynumeros.length; i++) {
+                            select += `<option value="${arraynumeros[i]}">${arraynumeros[i]}</option>`
                         }
-                        document.querySelector("#numCaballo").innerHTML += `</select>`
+                        select += `</select>`
+
+                        document.querySelector("#numCaballo").innerHTML = select
 
                     })
 
@@ -235,11 +270,8 @@
             //cuadro, caballo
 
         })
-
-
-        
-
     </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
 </html>

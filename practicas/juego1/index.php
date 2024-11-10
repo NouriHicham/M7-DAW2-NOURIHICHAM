@@ -49,18 +49,18 @@
             <label for="tipoApuesta">Tipo de apuesta</label>
             <select class="form-select" id="tipoApuesta" name="tipoApuesta">
                 <option selected>Seleccione un opción</option>
-                <option value="0">Roig/Negre</option>
-                <option value="1">Parell/Imparell</option>
-                <option value="2">Pasa/Falta</option>
-                <option value="3">Pleno</option>
-                <option value="4">Docena</option>
-                <option value="5">Columna</option>
-                <option value="6">Dos docenes</option>
-                <option value="7">Dos columnes</option>
-                <option value="8">Seisena</option>
-                <option value="9">Cuadro (carrer)</option>
-                <option value="10">Transversal</option>
-                <option value="11">Caballo</option>
+                <option value="Roig/Negre">Roig/Negre</option>
+                <option value="Parell/Imparell">Parell/Imparell</option>
+                <option value="Pasa/Falta">Pasa/Falta</option>
+                <option value="Pleno">Pleno</option>
+                <option value="Docena">Docena</option>
+                <option value="Columna">Columna</option>
+                <option value="Dos docenes">Dos docenes</option>
+                <option value="Dos columnes">Dos columnes</option>
+                <option value="Seisena">Seisena</option>
+                <option value="Cuadro">Cuadro (carrer)</option>
+                <option value="Transversal">Transversal</option>
+                <option value="Caballo">Caballo</option>
             </select>
 
             <!-- cambiar por automaticamente cambiar segun tipo de apuesta -->
@@ -133,7 +133,7 @@
 
             cambioApuesta.innerHTML = `<label for="queApuesta">¿A que apuestas?</label>`
             switch (document.querySelector("#tipoApuesta").value) {
-                case "0":
+                case "Roig/Negre":
                     //Roig/Negre
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                         <option selected>Seleccione un opción</option>
@@ -141,7 +141,7 @@
                                                         <option value="negro">Negro</option>
                                                     </select>`
                     break;
-                case "1":
+                case "Parell/Imparell":
                     //parell/imparell
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                         <option selected>Seleccione un opción</option>
@@ -149,7 +149,7 @@
                                                         <option value="impar">Impar</option>
                                                     </select>`
                     break;
-                case "2":
+                case "Pasa/Falta":
                     // Pasa/Falta
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -157,11 +157,11 @@
                                                     <option value="pasa">Pasa (19-36)</option>                                                
                                                 </select>`;
                     break;
-                case "3":
+                case "Pleno":
                     // Pleno
                     cambioApuesta.innerHTML += `<input type="number" class="form-control" id="queApuesta" name="queApuesta" min="0" max="36">`;
                     break;
-                case "4":
+                case "Docena":
                     // Docena
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -170,7 +170,7 @@
                                                     <option value="docena3">25-36</option>
                                                 </select>`;
                     break;
-                case "5":
+                case "Columna":
                     // Columna
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -179,7 +179,7 @@
                                                     <option value="columna3">Columna 3</option>
                                                 </select>`;
                     break;
-                case "6":
+                case "Dos docenes":
                     // Dos docenes
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -188,7 +188,7 @@
                                                     <option value="dosDocenas3">1-12 i 25-36</option>
                                                 </select>`;
                     break;
-                case "7":
+                case "Dos columnes":
                     // Dos columnes
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -196,7 +196,7 @@
                                                     <option value="dosColumnes2">Columna 2 i 3</option>
                                                 </select>`;
                     break;
-                case "8":
+                case "Seisena":
                     // Seisena
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -213,11 +213,11 @@
                                                     <option value="seisena11">31, 32, 33, 34, 35, 36</option>
                                                 </select>`;
                     break;
-                case "9":
+                case "Cuadro":
                     // Cuadro (carrer)
                     cambioApuesta.innerHTML += `<input type="text" class="form-control" id="queApuesta" name="queApuesta" placeholder="Ej: 1, 2, 4, 5">`;
                     break;
-                case "10":
+                case "Transversal":
                     // Transversal
                     cambioApuesta.innerHTML += `<select class="form-select" id="queApuesta" name="queApuesta">
                                                     <option selected>Seleccione una opción</option>
@@ -237,7 +237,7 @@
                                                     <option value="transversal14">34, 35, 36</option>
                                                 </select>`;
                     break;
-                case "11":
+                case "Caballo":
                     // Caballo
 
                     cambioApuesta.innerHTML += `<input type="number" class="form-control" id="caballo" name="queApuesta" min="1" max="36">`;

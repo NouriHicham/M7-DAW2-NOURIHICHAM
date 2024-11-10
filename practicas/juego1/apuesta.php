@@ -1,3 +1,19 @@
+<?php
+$arrayRojo = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+$numeroGanador = rand(0, 36);
+
+echo ''. $_POST['tipoApuesta'].' '. $_POST['dinero'].' '. $_POST['queApuesta'].'';
+// function cuantoGana() {}
+
+if ($numeroGanador == 0) {
+   $color = "verde";
+} else if (in_array($numeroGanador, $arrayRojo)) {
+   $color = "rojo";
+} else {
+   $color = "negro";
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,10 +31,10 @@
             La rule
          </div>
          <div class="card-body">
-            <h5 class="card-title">El numero ganador es: </h5>
-            <p class="card-text">Ha apostado al numero 10 y afortunadamente</p>
+            <h5 class="card-title">El numero ganador es: <?= $numeroGanador ?>, que cae en el color <?= $color ?></h5>
+            <p class="card-text">Ha apostado al numero 10</p>
             <p class="card-text">Ha ganado la barbara cantidad de 50€</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="#" class="btn btn-primary">Volver a la rule</a>
          </div>
          <div class="card-footer text-body-secondary">
             2 days ago

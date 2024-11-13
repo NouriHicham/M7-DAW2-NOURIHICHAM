@@ -59,7 +59,7 @@ if (isset($_SESSION['dificultad'])) {
 
          <div class="mb-3">
             <select class="form-select" name="dificultad" required>
-               <option selected>Seleccione una dificultad</option>
+               <option selected value="easy">Seleccione una dificultad</option>
                <option value="easy">Fácil</option>
                <option value="medium">Medio</option>
                <option value="hard">Dificil</option>

@@ -2,7 +2,7 @@
 session_start();
 
 if ($_SESSION["i"] == 3) {
-   header("Location: ");
+   header("Location: felicidad.php");
 }
 
 var_dump($_SESSION['avatar']);

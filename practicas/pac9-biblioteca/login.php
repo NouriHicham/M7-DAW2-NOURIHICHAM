@@ -13,16 +13,17 @@ $_SESSION["pass"] = $_POST["pass"];
 $_SESSION["img"] = $_POST["img"];
 
 // Validación de credenciales.
-if(isset($_SESSION["user"])){
-    for($i=0;$i<count($usuarios);$i++){
-        if($_SESSION["user"]==$usuarios[$i]["username"]&& $_SESSION["pass"]==$usuarios[$i]["password"]){
+if (isset($_SESSION["user"])) {
+    // Verifica si el usuario ha iniciado sesión; si no, muestra un mensaje de error.
+    for ($i = 0; $i < count($usuarios); $i++) {
+        if ($_SESSION["user"] == $usuarios[$i]["username"] && $_SESSION["pass"] == $usuarios[$i]["password"]) {
             $_SESSION["rol"] = $usuarios[$i]["role"];
             header('Location: home.php');
+            exit;
         }
     }
     $error = "Usuario o contraseña incorrecta";
 }
-
 
 ?>
 
@@ -45,21 +46,18 @@ if(isset($_SESSION["user"])){
         <?php endfor; ?>
 
         <!-- Sección de inicio de sesión -->
-        <div class="signin">
+        <div class="signin container mt-5 pt-5 pb-5 bg-secondary border rounded">
             <div class="content text-center">
-                <h2>Inicia sesión</h2>
-                <form method="login.php" action="login.php">
+                <h2 class="">Inicia sesión</h2>
+                <form method="post" action="login.php">
                     <div class="inputBox ">
                         <input class="p-2 m-2" placeholder="Username" type="text" name="user" required>
-                        admin o reader
                     </div>
                     <div class="inputBox ">
                         <input class="p-2 m-2" placeholder="Password" type="password" name="pass" required>
-                        adminpass o readerpass
                     </div>
                     <div class="inputBox ">
                         <input class="p-2 m-2" placeholder="Foto de perfil" type="text" name="img" value="https://static-00.iconduck.com/assets.00/incognito-icon-2048x1945-7h2njxu8.png" required>
-
                     </div>
                     <?php if (!empty($error)) : ?>
                         <div class="alert alert-danger"><?= $error ?></div>

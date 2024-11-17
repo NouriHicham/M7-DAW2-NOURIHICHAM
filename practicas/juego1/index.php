@@ -73,7 +73,7 @@
 
             <div class="input-group">
                 <label class="input-group" for="dinero" id="dinero">Cantidad de dinero</label>
-                <input type="text" class="form-control" id="dinero" name="dinero">
+                <input type="number" class="form-control" id="dinero" name="dinero" value="50">
                 <span class="input-group-text">€</span>
             </div>
 

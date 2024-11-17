@@ -2,10 +2,10 @@
 $arrayRojo = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 $numeroGanador = rand(0, 36);
 
-$tipoApuesta = $_POST['tipoApuesta']; 
-$dinero = $_POST['dinero']; 
-$queApuesta = $_POST['queApuesta'];
-$queApuesta2 = $_POST['queApuesta2'];
+$tipoApuesta = isset($_POST['tipoApuesta']) ? $_POST['tipoApuesta'] : null;
+$dinero = isset($_POST['dinero']) ? $_POST['dinero'] : 0;
+$queApuesta = isset($_POST['queApuesta']) ? $_POST['queApuesta'] : null;
+$queApuesta2 = isset($_POST['queApuesta2']) ? $_POST['queApuesta2'] : null;
 
 $dineroGanado = 0;
 
@@ -19,26 +19,26 @@ if ($numeroGanador == 0) {
 
 switch ($tipoApuesta) {
    case "Roig/Negre":
-      if($queApuesta==$color){
+      if ($queApuesta == $color) {
          $dineroGanado = $dinero;
       }
-   break;
+      break;
    case "Parell/Imparell":
-      if($queApuesta=="par" && $numeroGanador%2==0){
+      if ($queApuesta == "par" && $numeroGanador % 2 == 0) {
          $dineroGanado = $dinero;
-      }else if($queApuesta == "impar" && $numeroGanador % 2 != 0){
+      } else if ($queApuesta == "impar" && $numeroGanador % 2 != 0) {
          $dineroGanado = $dinero;
       }
-   break;
+      break;
    case "Pasa/Falta":
-      if($queApuesta=="falta" && $numeroGanador<=18){
+      if ($queApuesta == "falta" && $numeroGanador <= 18) {
          $dineroGanado = $dinero;
-      }else if($queApuesta == "pasa" && $numeroGanador > 18){
+      } else if ($queApuesta == "pasa" && $numeroGanador > 18) {
          $dineroGanado = $dinero;
       }
-   break;
+      break;
    case "Pleno":
-      if($numeroGanador==$queApuesta){
+      if ($numeroGanador == $queApuesta) {
          $dineroGanado = $dinero * 35;
       }
       break;
@@ -53,21 +53,21 @@ switch ($tipoApuesta) {
       }
       break;
    case "Dos docenes":
-      if($queApuesta== "dosDocenas1" && ($numeroGanador>0 || $numeroGanador<25)){
+      if ($queApuesta == "dosDocenas1" && ($numeroGanador > 0 || $numeroGanador < 25)) {
          $dineroGanado = $dinero * 0.5;
       } else if ($queApuesta == "dosDocenas2" && ($numeroGanador > 12 || $numeroGanador < 37)) {
          $dineroGanado = $dinero * 0.5;
-      } else if ($queApuesta == "dosDocenas3" && (($numeroGanador > 0 || $numeroGanador < 13)|| ($numeroGanador > 24 || $numeroGanador < 37))) {
+      } else if ($queApuesta == "dosDocenas3" && (($numeroGanador > 0 || $numeroGanador < 13) || ($numeroGanador > 24 || $numeroGanador < 37))) {
          $dineroGanado = $dinero * 0.5;
       }
       break;
    case "Dos columnes":
-      if($queApuesta== "dosColumnes1" && in_array($numeroGanador, [1,2,4,5,7,8,10,11,13,14,16,17,19,20,22,23,25,26,28,29,31,32,34,35])){
+      if ($queApuesta == "dosColumnes1" && in_array($numeroGanador, [1, 2, 4, 5, 7, 8, 10, 11, 13, 14, 16, 17, 19, 20, 22, 23, 25, 26, 28, 29, 31, 32, 34, 35])) {
          $dineroGanado = $dinero * 0.5;
-      }else if($queApuesta=="dosColumnes2" && in_array($numeroGanador, [2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30,32,33,35,36])){
+      } else if ($queApuesta == "dosColumnes2" && in_array($numeroGanador, [2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33, 35, 36])) {
          $dineroGanado = $dinero * 0.5;
       }
-   break;
+      break;
    case "Seisena":
       if ($queApuesta == "seisena1" && in_array($numeroGanador, [1, 2, 3, 4, 5, 6])) {
          $dineroGanado = $dinero * 5;
@@ -172,7 +172,7 @@ switch ($tipoApuesta) {
       }
       break;
    case "Caballo":
-      if($numeroGanador == ($queApuesta || $queApuesta2)){
+      if ($numeroGanador == ($queApuesta || $queApuesta2)) {
          $dineroGanado = $dinero * 17;
       }
       break;
@@ -199,7 +199,7 @@ switch ($tipoApuesta) {
             La rule
          </div>
          <div class="card-body">
-            <h5 class="card-title">El numero ganador es: <?= $numeroGanador ?>, que cae en el color <?= $color ?></h5>
+            <h5 class="card-title">El numero ganador es: <?= $numeroGanador ?>, que cae en el color <span style="background-color: <?php if($color=="verde"){echo "##32a852";}else if($color=="rojo"){echo "#a83232";}else if($color=="negro"){echo '##050505; color: "#FFFFFF";';} ?>;"><?= $color ?></span></h5>
             <p class="card-text">Ha apostado al numero 10</p>
             <p class="card-text">Ha ganado la barbara cantidad de 50€</p>
             <a href="index.php" class="btn btn-primary">Volver a la rule</a>

@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['dineroGanado'])){
+    $_SESSION['dineroGanado'];
+    $_SESSION['tipoApuesta'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 

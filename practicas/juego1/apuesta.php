@@ -1,4 +1,5 @@
 <?php
+session_start();
 $arrayRojo = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
 $numeroGanador = rand(0, 36);
 
@@ -55,8 +56,13 @@ include_once 'includes/casos_apuestas.php';
 
             <p class="card-text">Ha ganado la barbara cantidad de <?= '' . $dineroGanado . '' ?></p>
             <div class="row">
-               <div class="col"><a href="index.php" class="btn btn-success">Volver a apostar</a></div>
-               <div class="col"><a href="index.php" class="btn btn-primary">Cerrar sesión</a></div>
+               <div class="col">
+                  <form action="index.php" method="post">
+                     <button type="submit" class="btn btn-success">Volver a apostar</button>
+                  </form>
+                  <!-- aqui puedes poner que guarde la info en la array ya iniciada en la sesion -->
+               </div>
+               <div class="col"><a href="logout.php" class="btn btn-danger">Cerrar sesión</a></div>
             </div>
 
          </div>

@@ -5,6 +5,8 @@ $numeroGanador = rand(0, 36);
 $tipoApuesta = $_POST['tipoApuesta']; 
 $dinero = $_POST['dinero']; 
 $queApuesta = $_POST['queApuesta'];
+$queApuesta2 = $_POST['queApuesta2'];
+
 $dineroGanado = 0;
 
 if ($numeroGanador == 0) {
@@ -41,20 +43,12 @@ switch ($tipoApuesta) {
       }
       break;
    case "Docena":
-      if($queApuesta=="docena1" && ($numeroGanador > 0 || $numeroGanador < 13)){
-         $dineroGanado = $dinero * 2;
-      }else if($queApuesta == "docena2" && ($numeroGanador > 12 || $numeroGanador < 25)){
-         $dineroGanado = $dinero * 2;
-      }else if($queApuesta == "docena3" && $numeroGanador > 24){
+      if (($queApuesta == "docena1" && in_array($numeroGanador, range(1, 12))) || ($queApuesta == "docena2" && in_array($numeroGanador, range(13, 24))) || ($queApuesta == "docena3" && in_array($numeroGanador, range(25, 36)))) {
          $dineroGanado = $dinero * 2;
       }
       break;
    case "Columna":
-      if($queApuesta=="columna1" && ($numeroGanador==1 || $numeroGanador==4 || $numeroGanador ==7 || $numeroGanador ==10 || $numeroGanador ==13 || $numeroGanador ==16 || $numeroGanador ==19 || $numeroGanador ==22 || $numeroGanador ==25 || $numeroGanador ==28 || $numeroGanador ==31 || $numeroGanador == 34)){
-         $dineroGanado = $dinero * 2;
-      }else if($queApuesta=="columna2" && ($numeroGanador==2 || $numeroGanador==5 || $numeroGanador==8 || $numeroGanador==11 || $numeroGanador==14 || $numeroGanador==17 || $numeroGanador==20 || $numeroGanador==23 || $numeroGanador==26 || $numeroGanador==29 || $numeroGanador==32 || $numeroGanador==35)){
-         $dineroGanado = $dinero * 2;
-      }else if($queApuesta=="columna3" && ($numeroGanador==3 || $numeroGanador==6 || $numeroGanador==9 || $numeroGanador==12 || $numeroGanador==15 || $numeroGanador==18 || $numeroGanador==21 || $numeroGanador==24 || $numeroGanador==27 || $numeroGanador==30 || $numeroGanador==33 || $numeroGanador==36)){
+      if (($queApuesta == "columna1" && in_array($numeroGanador, [1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34])) || ($queApuesta == "columna2" && in_array($numeroGanador, [2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35])) || ($queApuesta == "columna3" && in_array($numeroGanador, [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36]))) {
          $dineroGanado = $dinero * 2;
       }
       break;
@@ -68,9 +62,9 @@ switch ($tipoApuesta) {
       }
       break;
    case "Dos columnes":
-      if($queApuesta== "dosColumnes1" && ($numeroGanador==1 || $numeroGanador==2 || $numeroGanador==4 || $numeroGanador==5 || $numeroGanador==7 || $numeroGanador==8 || $numeroGanador==10 || $numeroGanador==11 || $numeroGanador==13 || $numeroGanador==14 || $numeroGanador==16 || $numeroGanador==17 || $numeroGanador==19 || $numeroGanador==20 || $numeroGanador==22 || $numeroGanador==23 || $numeroGanador==25 || $numeroGanador==26 || $numeroGanador==28 || $numeroGanador==29 || $numeroGanador==31 || $numeroGanador==32 || $numeroGanador==34 || $numeroGanador==35)){
+      if($queApuesta== "dosColumnes1" && in_array($numeroGanador, [1,2,4,5,7,8,10,11,13,14,16,17,19,20,22,23,25,26,28,29,31,32,34,35])){
          $dineroGanado = $dinero * 0.5;
-      }else if($queApuesta=="dosColumnes2" && ($numeroGanador==2 || $numeroGanador==3 || $numeroGanador==5 || $numeroGanador==6 || $numeroGanador==8 || $numeroGanador==9 || $numeroGanador==11 || $numeroGanador==12 || $numeroGanador==14 || $numeroGanador==15 || $numeroGanador==17 || $numeroGanador==18 || $numeroGanador==20 || $numeroGanador==21 || $numeroGanador==23 || $numeroGanador==24 || $numeroGanador==26 || $numeroGanador==27 || $numeroGanador==29 || $numeroGanador==30 || $numeroGanador==32 || $numeroGanador==33 || $numeroGanador==35 || $numeroGanador==36)){
+      }else if($queApuesta=="dosColumnes2" && in_array($numeroGanador, [2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30,32,33,35,36])){
          $dineroGanado = $dinero * 0.5;
       }
    break;
@@ -100,13 +94,91 @@ switch ($tipoApuesta) {
       }
       break;
    case "Cuadro":
+      if ($queApuesta == "cuadro1" && in_array($numeroGanador, [1, 2, 4, 5])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro2" && in_array($numeroGanador, [2, 3, 5, 6])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro3" && in_array($numeroGanador, [4, 5, 7, 8])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro4" && in_array($numeroGanador, [5, 6, 8, 9])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro5" && in_array($numeroGanador, [7, 8, 10, 11])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro6" && in_array($numeroGanador, [8, 9, 11, 12])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro7" && in_array($numeroGanador, [10, 11, 13, 14])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro8" && in_array($numeroGanador, [11, 12, 14, 15])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro9" && in_array($numeroGanador, [13, 14, 16, 17])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro10" && in_array($numeroGanador, [14, 15, 17, 18])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro11" && in_array($numeroGanador, [16, 17, 19, 20])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro12" && in_array($numeroGanador, [17, 18, 20, 21])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro13" && in_array($numeroGanador, [19, 20, 22, 23])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro14" && in_array($numeroGanador, [20, 21, 23, 24])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro15" && in_array($numeroGanador, [22, 23, 25, 26])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro16" && in_array($numeroGanador, [23, 24, 26, 27])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro17" && in_array($numeroGanador, [25, 26, 28, 29])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro18" && in_array($numeroGanador, [26, 27, 29, 30])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro19" && in_array($numeroGanador, [28, 29, 31, 32])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro20" && in_array($numeroGanador, [29, 30, 32, 33])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro21" && in_array($numeroGanador, [31, 32, 34, 35])) {
+         $dineroGanado = $dinero * 8;
+      } else if ($queApuesta == "cuadro22" && in_array($numeroGanador, [32, 33, 35, 36])) {
+         $dineroGanado = $dinero * 8;
+      }
+      break;
    case "Transversal":
+      if ($queApuesta == "transversal1" && in_array($numeroGanador, [0, 1, 2])) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal2" && in_array($numeroGanador, [0, 2, 3])) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal3" && in_array($numeroGanador, range(1, 3))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal4" && in_array($numeroGanador, range(4, 6))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal5" && in_array($numeroGanador, range(7, 9))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal6" && in_array($numeroGanador, range(10, 12))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal7" && in_array($numeroGanador, range(13, 15))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal8" && in_array($numeroGanador, range(16, 18))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal9" && in_array($numeroGanador, range(19, 21))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal10" && in_array($numeroGanador, range(22, 24))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal11" && in_array($numeroGanador, range(25, 27))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal12" && in_array($numeroGanador, range(28, 30))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal13" && in_array($numeroGanador, range(31, 33))) {
+         $dineroGanado = $dinero * 11;
+      } else if ($queApuesta == "transversal14" && in_array($numeroGanador, range(34, 36))) {
+         $dineroGanado = $dinero * 11;
+      }
+      break;
    case "Caballo":
-   break;
+      if($numeroGanador == ($queApuesta || $queApuesta2)){
+         $dineroGanado = $dinero * 17;
+      }
+      break;
    default:
-   break;
+      break;
 }
-
 
 ?>
 

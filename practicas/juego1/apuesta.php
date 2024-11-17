@@ -20,6 +20,17 @@ if ($numeroGanador == 0) {
 
 include_once 'includes/casos_apuestas.php';
 
+
+if(!isset($_SESSION['dineroGanado'])){
+   $_SESSION['dineroGanado'] = [];
+   $_SESSION['tipoApuesta'] = [];
+   $_SESSION['dineroApostado'] = [];
+}else{
+   array_push($_SESSION['dineroGanado'], $dineroGanado);
+   array_push($_SESSION['tipoApuesta'], $tipoApuesta);
+   array_push($_SESSION['dineroApostado'], $dinero);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,13 +50,14 @@ include_once 'includes/casos_apuestas.php';
             La rule
          </div>
          <div class="card-body">
-            <h5 class="card-title">El numero ganador es: <?= $numeroGanador ?>, que cae en el color <span style="background-color: <?php if ($color == "verde") {
-                                                                                                                                       echo "##32a852";
-                                                                                                                                    } else if ($color == "rojo") {
-                                                                                                                                       echo "#a83232";
-                                                                                                                                    } else if ($color == "negro") {
-                                                                                                                                       echo '##050505; color: "#FFFFFF";';
-                                                                                                                                    } ?>;"><?= $color ?></span></h5>
+            <h5 class="card-title">El numero ganador es: <?= $numeroGanador ?>, que cae en el color <span style="background-color: <?php 
+            if ($color == "verde") {
+               echo "#32a852";
+            } else if ($color == "rojo") {
+               echo "#a83232";
+            } else if ($color == "negro") {
+               echo '#050505; color: #ffffff;';
+            } ?>;"><?= $color ?></span></h5>
             <?php
             if (is_numeric($queApuesta)) {
                echo '<p class="card-text">Ha apostado al numero ' . $queApuesta . ' </p>';
@@ -56,18 +68,44 @@ include_once 'includes/casos_apuestas.php';
 
             <p class="card-text">Ha ganado la barbara cantidad de <?= '' . $dineroGanado . '' ?></p>
             <div class="row">
-               <div class="col">
-                  <form action="index.php" method="post">
-                     <button type="submit" class="btn btn-success">Volver a apostar</button>
-                  </form>
-                  <!-- aqui puedes poner que guarde la info en la array ya iniciada en la sesion -->
-               </div>
+               <div class="col"><a href="index.php" class="btn btn-success">Volver a apostar</a></div>
                <div class="col"><a href="logout.php" class="btn btn-danger">Cerrar sesión</a></div>
             </div>
 
          </div>
          <div class="card-footer text-body-secondary">
-            2 days ago
+         <p class="d-inline-flex gap-1">
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Tabla de apuestas
+            </button>
+         </p>
+         <div class="collapse" id="collapseExample">
+            <div class="card border-0">
+            <table class="table">
+               <thead>
+                  <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">Dinero apostado</th>
+                     <th scope="col">Dinero ganado</th>
+                     <th scope="col">Tipo de apuesta</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php
+                  for($i=0;$i<count($_SESSION['dineroGanado']);$i++){
+                     echo '
+                        <tr>
+                           <th scope="row">'.$i.'</th>
+                           <td>'.$_SESSION['dineroGanado'][$i].'</td>
+                           <td>'.$_SESSION['dineroApostado'][$i].'</td>
+                           <td>'.$_SESSION['tipoApuesta'][$i].'</td>
+                        </tr>
+                     ';
+                  }
+                  ?>
+               </tbody>
+            </div>
+        </div>
          </div>
       </div>
    </div>

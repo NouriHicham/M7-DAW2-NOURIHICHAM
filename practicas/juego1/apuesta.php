@@ -25,6 +25,9 @@ if(!isset($_SESSION['dineroGanado'])){
    $_SESSION['dineroGanado'] = [];
    $_SESSION['tipoApuesta'] = [];
    $_SESSION['dineroApostado'] = [];
+   array_push($_SESSION['dineroGanado'], $dineroGanado);
+   array_push($_SESSION['tipoApuesta'], $tipoApuesta);
+   array_push($_SESSION['dineroApostado'], $dinero);
 }else{
    array_push($_SESSION['dineroGanado'], $dineroGanado);
    array_push($_SESSION['tipoApuesta'], $tipoApuesta);

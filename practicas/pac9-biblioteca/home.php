@@ -2,7 +2,7 @@
 session_start();
 
 // Obtener la lista de libros desde la sesión
-include_once 'libreria.php';
+include_once 'includes/libreria.php';
 //var_dump($_SESSION['libros']);
 
 // Verifica si el usuario ha iniciado sesión; si no, muestra un mensaje de error.
@@ -14,7 +14,6 @@ if (!isset($_SESSION["user"])) {
 if ($_SESSION['rol'] == "admin") {
     $admin = true;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -33,9 +32,9 @@ if ($_SESSION['rol'] == "admin") {
     <header class="bg-light py-3 mb-4 shadow-sm">
         <div class="container d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
-                <img src="<?= '' . $_SESSION['img'] . '' ?>" alt="Foto de perfil" class="w-25 rounded-circle me-3">
+                <img src="<?=''. $_SESSION['img'].''?>" alt="Foto de perfil" class="w-25 rounded-circle me-3">
                 <div>
-                    <h4 class="m-0">👋 Bienvenido, <?= '' . $_SESSION['user'] . '' ?></h4>
+                    <h4 class="m-0">👋 Bienvenido, <?= $_SESSION['user'] ?></h4>
                     <!-- SI ES ADMIN.... -->
                     <?php if ($admin): ?>
                         <p class="text-muted m-0">
@@ -76,36 +75,38 @@ if ($_SESSION['rol'] == "admin") {
         <!-- Mostrar lista de libros en un grid de tarjetas con tamaño uniforme -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
-        <?php foreach($_SESSION['libreria'] as $libros):?>
-        
-
-        ITEM; endforeach; ?>
-        ?>
-            <div class="col">
-                <div class="card h-100 shadow-sm">
-                    <img src="" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
+        <?php 
+            $i=0;
+            foreach($_SESSION['libros'] as $libros){ 
+                echo '
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                    <img src="'.$libros["imagen"].'" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
                     <div class="card-body">
-                        <h5 class="card-title">TITULO</h5>
-                        <p class="card-text"><strong>Autor:</strong> AUTOR</p>
-                        <p class="card-text">DESCRIPCIÓN</p>
+                    <h5 class="card-title">'.$libros["libro"].'</h5>
+                    <p class="card-text"><strong>Autor: </strong>'.$libros["autor"].'</p>
+                    <p class="card-text">'.$libros["descripcion"].'</p>
                     </div>
-
-
-                    <!-- Botones de editar y eliminar (solo visible para el admin) -->
-                    <?php if ($admin): ?>
-                        <?=
-                        '<div class="card-footer d-flex justify-content-between">
-                            <a href="" class="btn btn-outline-primary btn-sm">
-                                <i class="fas fa-edit"></i> Editar
-                            </a>
-                            <a href="" class="btn btn-outline-danger btn-sm">
-                                <i class="fas fa-trash-alt"></i> Eliminar
-                            </a>
-                        </div>'
-                        ?>
-                    <?php endif ?>
-                </div>
-            </div>
+                    ';
+                // Botones de editar y eliminar (solo visible para el admin)
+                if ($admin){
+                    echo '
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="add_edit_book.php?id='.$i.'" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        <a href="delete_book.php?id='.$i.'" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </a>
+                    </div>';
+                }
+                echo '
+                    </div>
+                    </div>
+                ';
+                $i++;
+            }
+        ?>
 
         </div>
     </div>

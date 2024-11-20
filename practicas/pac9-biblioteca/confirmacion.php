@@ -9,13 +9,12 @@ if(isset($_GET['id'])){
       agregarLibro($_GET['titulo'],$_GET['autor'],$_GET['imagen'],$_GET['descripcion']);
       header('Location: home.php');
       exit;
-   }else if($_GET['id'] >= 0){
+   }else{
       editarLibro($_GET['id'],$_GET['titulo'],$_GET['autor'],$_GET['imagen'],$_GET['descripcion']);
       header('Location: home.php');
       exit;
    }
 }
-
    
 ?>
 
@@ -44,7 +43,7 @@ if(isset($_GET['id'])){
 
    <div class="container">
    <?php
-   if(empty($_POST['anadir'])){
+   if($_POST['anadir']==true){
       echo '
          <div class="col">
             <div class="card h-100 shadow-sm">
@@ -61,15 +60,17 @@ if(isset($_GET['id'])){
             <a href="home.php" class="mt-2 btn btn-danger">Me arrepiento</a>
          </div>
       ';
-   }else if(isset($_POST['editar'])){
+   }else{
+      //uso el post editar porque en el boton del add_edit_book.php guardo alli el valor de la id
       echo '
+         <div class="row">
          <div class="col">
             <div class="card h-100 shadow-sm">
-            <img src="'.$_SESSION['libros'][$_POST['id']]["imagen"].'" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
+            <img src="'.$_SESSION['libros'][$_POST['editar']]["imagen"].'" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
             <div class="card-body">
-            <h5 class="card-title">'.$_SESSION['libros'][$_POST['id']]["titulo"].'</h5>
-            <p class="card-text"><strong>Autor: </strong>'.$_SESSION['libros'][$_POST['id']]["autor"].'</p>
-            <p class="card-text">'.$_SESSION['libros'][$_POST['id']]["descripcion"].'</p>
+            <h5 class="card-title">'.$_SESSION['libros'][$_POST['editar']]["titulo"].'</h5>
+            <p class="card-text"><strong>Autor: </strong>'.$_SESSION['libros'][$_POST['editar']]["autor"].'</p>
+            <p class="card-text">'.$_SESSION['libros'][$_POST['editar']]["descripcion"].'</p>
             </div>
             </div>
          </div>
@@ -85,17 +86,18 @@ if(isset($_GET['id'])){
             </div>
             </div>
          </div>
+         </div>
       ';
       echo '
-         <div class="container">
-            <a href="confirmacion.php?titulo='.$_POST['titulo'].'&autor='.$_POST['autor'].'&descripcion='.$_POST['descripcion'].'&imagen='.$_POST['imagen'].'&id='.$_POST['id'].'" class="mt-2 mb-2 row btn btn-primary">Confirma editar el primer libro por el segundo?</a> 
-            <a href="home.php" class="row btn btn-danger">Me arrepiento</a>
+         <div class="row mt-2 container">
+            <a href="confirmacion.php?titulo='.$_POST['titulo'].'&autor='.$_POST['autor'].'&descripcion='.$_POST['descripcion'].'&imagen='.$_POST['imagen'].'&id='.$_POST['editar'].'" class="btn btn-primary">Confirma editar el primer libro por el segundo?</a> 
+            <a href="home.php" class="mt-2 btn btn-danger">Me arrepiento</a>
          </div>
       ';
    }
    ?>
 
-   <?php var_dump($_GET); ?>
+   <?php //var_dump($_POST); ?>
    </div>
 </body>
 </html>

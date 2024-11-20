@@ -60,7 +60,7 @@ if ($_SESSION['rol'] != "admin") {
                         <label for="descripcion">Descripción</label>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg" name="anadir">Añadir</button>
+                        <button type="submit" class="btn btn-primary btn-lg" name="anadir" value=true>Añadir</button>
                     </div>
                 ';
             }else{
@@ -82,7 +82,7 @@ if ($_SESSION['rol'] != "admin") {
                         <label for="descripcion">Descripción</label>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg" name="editar" value="'.$_GET['id'].'">Editar</button>
+                        <button type="submit" class="btn btn-primary btn-lg" name="editar" value='.$_GET['id'].'>Editar</button>
                     </div>
                 ';
             }

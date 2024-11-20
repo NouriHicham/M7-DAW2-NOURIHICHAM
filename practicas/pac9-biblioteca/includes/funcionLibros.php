@@ -13,15 +13,17 @@ function agregarLibro($titulo, $autor, $imagen, $descripcion){
 }
 
 function editarLibro($id, $titulo, $autor, $imagen, $descripcion){
-   $edit_libro = [
-      "titulo" => $titulo, 
-      "autor" => $autor, 
+   $_SESSION['libros'][$id] = [
+      "titulo" => $titulo,
+      "autor" => $autor,
       "descripcion" => $descripcion,
       "imagen" => $imagen
-   ];
+  ];
 
-   array_replace($_SESSION['libros'], array($id => $edit_libro));
+}
 
+function eliminarLibro($id){
+   array_splice($_SESSION['libros'], $id, 1);
 }
 
 ?>

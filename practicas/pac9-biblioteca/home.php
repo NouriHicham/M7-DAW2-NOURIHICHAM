@@ -83,7 +83,7 @@ if ($_SESSION['rol'] == "admin") {
                     <div class="card h-100 shadow-sm">
                     <img src="'.$libros["imagen"].'" class="card-img-top" alt="" style="height: 400px; object-fit: cover;">
                     <div class="card-body">
-                    <h5 class="card-title">'.$libros["libro"].'</h5>
+                    <h5 class="card-title">'.$libros["titulo"].'</h5>
                     <p class="card-text"><strong>Autor: </strong>'.$libros["autor"].'</p>
                     <p class="card-text">'.$libros["descripcion"].'</p>
                     </div>

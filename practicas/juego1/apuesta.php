@@ -99,8 +99,8 @@ if(!isset($_SESSION['dineroGanado'])){
                      echo '
                         <tr>
                            <th scope="row">'.$i.'</th>
-                           <td>'.$_SESSION['dineroGanado'][$i].'</td>
                            <td>'.$_SESSION['dineroApostado'][$i].'</td>
+                           <td>'.$_SESSION['dineroGanado'][$i].'</td>
                            <td>'.$_SESSION['tipoApuesta'][$i].'</td>
                         </tr>
                      ';

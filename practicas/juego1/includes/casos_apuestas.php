@@ -154,7 +154,7 @@ switch ($tipoApuesta) {
       }
       break;
    case "Caballo":
-      if ($numeroGanador == ($queApuesta || $queApuesta2)) {
+      if ($numeroGanador == $queApuesta || $numeroGanador == $queApuesta2) {
          $dineroGanado = $dinero * 17;
       }
       break;

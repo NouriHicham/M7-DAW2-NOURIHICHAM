@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +15,7 @@ session_start();
         .imagen {
             animation: rotate-animation 2.5s linear infinite;
         }
-
+        
         @keyframes rotate-animation {
             from {
                 transform: rotate(0deg);
@@ -82,6 +81,18 @@ session_start();
                 <input type="number" class="form-control" id="dinero" name="dinero" value="50">
                 <span class="input-group-text">€</span>
             </div>
+
+            <?php
+                if(!isset($_SESSION['saldo'])){
+                    echo '
+                        <div class="input-group">
+                            <label class="input-group" for="saldo" id="saldo">Saldo</label>
+                            <input type="number" class="form-control" id="saldo" name="saldo" value="1000">
+                            <span class="input-group-text">€</span>
+                        </div>
+                    ';
+                }
+            ?>
 
             <button type="submit" class="btn btn-secondary" style="margin: 20px 0;">Enviar</button>
         </form>

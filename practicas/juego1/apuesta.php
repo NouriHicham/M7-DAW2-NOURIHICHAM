@@ -10,6 +10,11 @@ $queApuesta2 = isset($_POST['queApuesta2']) ? $_POST['queApuesta2'] : null;
 
 $dineroGanado = 0;
 
+
+if(!isset($_SESSION['saldo'])){
+   $_SESSION['saldo'] = $_POST['saldo'];
+}
+
 if ($numeroGanador == 0) {
    $color = "verde";
 } else if (in_array($numeroGanador, $arrayRojo)) {
@@ -20,6 +25,8 @@ if ($numeroGanador == 0) {
 
 include_once 'includes/casos_apuestas.php';
 
+//dinero perdido o ganado
+$_SESSION['saldo'] = $_SESSION['saldo'] - ($dinero - $dineroGanado);
 
 if(!isset($_SESSION['dineroGanado'])){
    $_SESSION['dineroGanado'] = [];
@@ -70,12 +77,16 @@ if(!isset($_SESSION['dineroGanado'])){
             ?>
 
             <p class="card-text">Ha ganado la barbara cantidad de <?= '' . $dineroGanado . '' ?></p>
+            <p class="card-text">Aun le queda <strong><?= $_SESSION['saldo']?>€</strong></p>
             <div class="row">
+               <? if($_SESSION['saldo']>0):?>
                <div class="col"><a href="index.php" class="btn btn-success">Volver a apostar</a></div>
+               <? endif;?>
                <div class="col"><a href="logout.php" class="btn btn-danger">Cerrar sesión</a></div>
             </div>
 
          </div>
+
          <div class="card-footer text-body-secondary">
          <p class="d-inline-flex gap-1">
             <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -111,7 +122,9 @@ if(!isset($_SESSION['dineroGanado'])){
         </div>
          </div>
       </div>
+      
    </div>
+   
 
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>

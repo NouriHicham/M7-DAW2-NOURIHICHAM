@@ -30,7 +30,7 @@
    <ul>
    <?php
       foreach($productes as $producte){
-         echo '';
+         echo '<li>'.$producte->nom.', cuesta '.$producte->preu.'€</li>';
       }
    ?>
    </ul>

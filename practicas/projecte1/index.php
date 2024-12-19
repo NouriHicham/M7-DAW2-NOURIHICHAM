@@ -1,5 +1,5 @@
 <?php
-   //definir cada gormiti 
+   //BORRALO (o no, haya tú)
    class Gormiti{
       public string $nom;
       public int $hp;

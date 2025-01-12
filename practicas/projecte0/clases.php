@@ -32,7 +32,15 @@ class Libro
 
 class Biblioteca
 {
-   public array $biblioteca = [];
+   private $biblioteca;
+
+   public function __construct()
+   {
+      if (!isset($_SESSION['biblioteca'])) {
+         $_SESSION['biblioteca'] = [];
+      }
+      $this->biblioteca =& $_SESSION['biblioteca']; // Referencia al array de la sesión
+   }
 
    public function afegirLlibre($titol, $autor, $anyPublic, $foto){
       $libro = new Libro($titol, $autor, $anyPublic, $foto);
@@ -54,7 +62,7 @@ class Biblioteca
                         <img src="'.$libro->foto.'" class="card-img-top">
                         <div class="card-body">
                            <h5 class="card-title">'.$libro->titol.'</h5>
-                           <p class="card-text">'.$libro->autor.' - '.$libro->anyPublic.'</p>
+                           <p class="card-text">'.$libro->autor.' - '.$libro->anyPublic.'</p>  
                         </div>
                      </div>
                    ';

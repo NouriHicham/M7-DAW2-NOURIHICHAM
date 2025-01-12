@@ -2,10 +2,14 @@
    session_start();
    include_once 'clases.php';
 
-   $_SESSION['prueba'] = new Biblioteca;
-   $_SESSION['prueba']->afegirLlibre('Cien años de soledad', 'Gabriel García Márquez', 1967, 'https://m.media-amazon.com/images/I/91TvVQS7loL._AC_UF894,1000_QL80_.jpg');
-   $_SESSION['prueba']->afegirLlibre('Mil soles espléndidos', 'Khaled Hosseini', 2007, 'https://m.media-amazon.com/images/I/71dGXojweAL._UF1000,1000_QL80_.jpg');
-   $_SESSION['prueba']->afegirLlibre('El principito', 'Antoine de Saint-Exupéry', 1943, 'https://m.media-amazon.com/images/I/714Hvb52n-L._AC_UF894,1000_QL80_.jpg');
+   if(!isset($_SESSION['prueba'])){
+
+      $_SESSION['prueba'] = new Biblioteca;
+
+      $_SESSION['prueba']->afegirLlibre('Cien años de soledad', 'Gabriel García Márquez', 1967, 'https://m.media-amazon.com/images/I/91TvVQS7loL._AC_UF894,1000_QL80_.jpg');
+      $_SESSION['prueba']->afegirLlibre('Mil soles espléndidos', 'Khaled Hosseini', 2007, 'https://m.media-amazon.com/images/I/71dGXojweAL._UF1000,1000_QL80_.jpg');
+      $_SESSION['prueba']->afegirLlibre('El principito', 'Antoine de Saint-Exupéry', 1943, 'https://m.media-amazon.com/images/I/714Hvb52n-L._AC_UF894,1000_QL80_.jpg');
+   }
 
 ?>
 
@@ -63,6 +67,7 @@
                $_SESSION['prueba']->mostrarLlibres(); 
             }else if($_GET['tipo']=='buscar'){
                echo $_SESSION['prueba']->buscarLlibre($_GET['titol']);
+               $_SESSION['prueba']->mostrarLlibres(); 
             }else{
                $_SESSION['prueba']->mostrarLlibres(); 
             }

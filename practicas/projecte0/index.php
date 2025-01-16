@@ -1,7 +1,6 @@
 <?php
-   session_start();
    include_once 'clases.php';
-
+   session_start();
    if(!isset($_SESSION['prueba'])){
 
       $_SESSION['prueba'] = new Biblioteca;

@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 class Libro
 {
@@ -32,15 +31,7 @@ class Libro
 
 class Biblioteca
 {
-   private $biblioteca;
-
-   public function __construct()
-   {
-      if (!isset($_SESSION['biblioteca'])) {
-         $_SESSION['biblioteca'] = [];
-      }
-      $this->biblioteca =& $_SESSION['biblioteca']; // Referencia al array de la sesión
-   }
+   private array $biblioteca = [];
 
    public function afegirLlibre($titol, $autor, $anyPublic, $foto){
       $libro = new Libro($titol, $autor, $anyPublic, $foto);
@@ -66,8 +57,6 @@ class Biblioteca
                         </div>
                      </div>
                    ';
-            
-            
          }
       }
    }

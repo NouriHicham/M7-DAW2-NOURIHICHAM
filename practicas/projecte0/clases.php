@@ -57,8 +57,9 @@ class Biblioteca
                         </div>
                      </div>
                    ';
+         }else{
+            return 'No se ha encontrado nada';
          }
-         return 'No se ha encontrado nada';
       }
    }
 }

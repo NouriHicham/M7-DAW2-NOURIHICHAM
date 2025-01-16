@@ -66,7 +66,6 @@
                $_SESSION['prueba']->mostrarLlibres(); 
             }else if($_GET['tipo']=='buscar'){
                echo $_SESSION['prueba']->buscarLlibre($_GET['titol']);
-               $_SESSION['prueba']->mostrarLlibres(); 
             }else{
                $_SESSION['prueba']->mostrarLlibres(); 
             }

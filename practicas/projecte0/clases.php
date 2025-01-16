@@ -58,6 +58,7 @@ class Biblioteca
                      </div>
                    ';
          }
+         return 'No se ha encontrado nada';
       }
    }
 }

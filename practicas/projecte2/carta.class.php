@@ -11,14 +11,18 @@
 
       public function pinta_carta(){
          if(in_array($this->num, [0,1,2,3,4,5,6,7,8,9,10,11,12])){
-            echo '<img src="./images/'.$this->num.'_'.$this->palo.'.png" alt="'.$this->num.'_'.$this->palo.'">';
+            return '<img src="./images/'.$this->num.'_'.$this->palo.'.png" alt="'.$this->num.'_'.$this->palo.'">';
          }else if($this->num==13){
-            echo '<img src="./images/color_changer.png" alt="color_changer">';
+            return '<img src="./images/color_changer.png" alt="color_changer">';
          }
       }
 
       public function pinta_carta_link(){
-         return '<a href="">'.$this->pinta_carta().'</a>';
+         if(in_array($this->num, [0,1,2,3,4,5,6,7,8,9,10,11,12])){
+            return '<a href="?palo='.$this->palo.'&num='.$this->num.'"><img src="./images/'.$this->num.'_'.$this->palo.'.png" alt="'.$this->num.'_'.$this->palo.'"></a>';
+         }else if($this->num==13){
+            return '<a href="?num='.$this->num.'"><img src="./images/color_changer.png" alt="color_changer"></a>';
+         }
       }
 
       public function pinta_carta_girada(){

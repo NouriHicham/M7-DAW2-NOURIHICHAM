@@ -1,13 +1,17 @@
 <?php
 include_once 'carta.class.php';
 include_once 'baraja.class.php';
+include_once 'partida.class.php';
+include_once 'carta.class.php';
+include_once 'jugador.class.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
+   <title>Juego del UNO</title>
 </head>
 <body>
    <div>
@@ -15,7 +19,9 @@ include_once 'baraja.class.php';
          $prueba = new Baraja(); 
          $prueba->crea_baraja();
          $prueba->mezcla();
-         $prueba->pinta_baraja();
+         
+         $pruebaPartida = new Partida(4, 8, $prueba->getBaraja());
+         $pruebaPartida->jugar();
       ?>
    </div>
    

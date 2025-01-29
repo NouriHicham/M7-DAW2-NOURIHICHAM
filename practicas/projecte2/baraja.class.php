@@ -20,8 +20,12 @@
 
       public function pinta_baraja(){
          foreach($this->conjunto_cartas as $carta){
-            $carta->pinta_carta();
+            echo $carta->pinta_carta_link();
          }
+      }
+
+      public function getBaraja(){
+         return $this->conjunto_cartas;
       }
    }
 ?>

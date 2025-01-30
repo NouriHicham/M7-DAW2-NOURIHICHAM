@@ -25,9 +25,19 @@
       }
 
       public function mostra_ma(){
+         $cartas = '';
          foreach($this->mano as $mano){
-            return $mano->pinta_carta_link();
+            $cartas .= $mano->pinta_carta_link();
          }
+         return $cartas;
+      }
+
+      public function mostra_cartas_ocultas(){
+         $cartas = '';
+         foreach($this->mano as $mano){
+            $cartas .= $mano->pinta_carta_girada();
+         }
+         return $cartas;
       }
    }
 ?>

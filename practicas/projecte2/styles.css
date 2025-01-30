@@ -26,3 +26,19 @@ label {
    font-size: 16px;
    color: white;
 }
+
+.jugador, .jugadorActivo{
+   height: 138px;
+   margin: 10px 0px;
+}
+
+.jugador img, .jugadorActivo img{
+   height: 100%;
+   transition: 0.3s;
+}
+
+.jugadorActivo img:hover{
+   cursor: pointer;
+   transform: scale(1.1);
+   transition: 0.3s;
+}

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -19,18 +19,12 @@
       <h2>UNO</h2>
    </section>
    <section class="container mt-2">
-      <form action="index.php" method="get">
+      <form action="index.php" method="post">
          <div class="d-flex justify-content-around">
          <div>
             <legend>Seleccione jugadores</legend>
             <div class="form-check">
-                  <input class="form-check-input" type="radio" name="numPlayers" value="1" checked>
-                  <label class="form-check-label">
-                     1
-                  </label>
-            </div>
-            <div class="form-check">
-               <input class="form-check-input" type="radio" name="numPlayers" value="2">
+               <input class="form-check-input" type="radio" name="numPlayers" value="2" checked>
                <label class="form-check-label">
                   2
                </label>

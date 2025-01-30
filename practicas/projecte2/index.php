@@ -1,9 +1,37 @@
 <?php
+session_start();
+
 include_once 'carta.class.php';
 include_once 'baraja.class.php';
 include_once 'partida.class.php';
 include_once 'carta.class.php';
 include_once 'jugador.class.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   if (!isset($_POST['numPlayers']) || !isset($_POST['numCartas'])) {
+       header('Location: formulario_uno.php');
+       exit;
+   } else {
+       $prueba = new Baraja(); 
+       $prueba->crea_baraja();
+       $prueba->mezcla();
+       
+       $pruebaPartida = new Partida($_POST['numPlayers'], $_POST['numCartas'], $prueba->getBaraja());
+       $_SESSION['partida'] = serialize($pruebaPartida);
+   }
+} else {
+   if (isset($_SESSION['partida'])) {
+      $pruebaPartida = unserialize($_SESSION['partida']);
+
+      if (isset($_GET['palo']) && isset($_GET['num'])) {
+         $pruebaPartida->jugarCarta($_GET['palo'], $_GET['num']);
+         $_SESSION['partida'] = serialize($pruebaPartida);
+      }
+   } else {
+       header('Location: formulario_uno.php');
+       exit;
+   }
+}
 
 ?>
 <!DOCTYPE html>
@@ -12,17 +40,15 @@ include_once 'jugador.class.php';
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Juego del UNO</title>
+   <link rel="stylesheet" href="styles.css">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
    <div>
       <?php 
-         $prueba = new Baraja(); 
-         $prueba->crea_baraja();
-         $prueba->mezcla();
-         
-         $pruebaPartida = new Partida(4, 8, $prueba->getBaraja());
          $pruebaPartida->jugar();
       ?>
+      <button class="btn btn-secondary"><a href="logout.php" class="text-decoration-none link-light">Terminar partida</a></button>
    </div>
    
 </body>

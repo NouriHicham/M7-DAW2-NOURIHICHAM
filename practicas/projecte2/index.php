@@ -26,6 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_GET['palo']) && isset($_GET['num'])) {
          $pruebaPartida->jugarCarta($_GET['palo'], $_GET['num']);
          $_SESSION['partida'] = serialize($pruebaPartida);
+
+      }elseif (isset($_GET['accion']) && $_GET['accion'] == 'robar') {
+         $pruebaPartida->robarCarta();
+         $_SESSION['partida'] = serialize($pruebaPartida);
+      } elseif (isset($_GET['accion']) && $_GET['accion'] == 'cambiar_color' && isset($_GET['color'])) {
+         $pruebaPartida->cambiarColor($_GET['color']);
+         $_SESSION['partida'] = serialize($pruebaPartida);
       }
    } else {
        header('Location: formulario_uno.php');

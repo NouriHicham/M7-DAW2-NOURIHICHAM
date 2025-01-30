@@ -7,6 +7,7 @@
       public object $carta_en_mesa;
       public array $array_jugadores;
       public string $sentido;
+      public string $color_actual;
 
       public function __construct(int $num_jugadores, int $num_cartas, array $baraja){
          $this->num_jugadores = $num_jugadores;
@@ -15,6 +16,7 @@
          $this->baraja = $baraja;
          $this->turno = 0;
          $this->sentido = 'derecha';
+         $this->color_actual = '';
 
          //crear jugadores
          for($i=0 ; $i<$this->num_jugadores ; $i++){
@@ -40,6 +42,7 @@
             if ($jugador->id == $this->turno) {
                echo '<div class="jugadorActivo">';
                echo $jugador->mostra_ma(); // Mostrar cartas del jugador actual
+               echo '<a href="?accion=robar" class="btn btn-primary robar">Robar carta</a>'; // Botón para robar carta
                echo '</div>';
             } else {
                echo '<div class="jugador">';
@@ -53,6 +56,21 @@
          echo '<div class="carta_mesa">';
          echo $this->carta_en_mesa->pinta_carta();
          echo '</div>';
+
+         //formulario para cambiar color
+         if ($this->carta_en_mesa->num == 13) {
+            echo '<form method="GET" action="index.php">';
+            echo '<input type="hidden" name="accion" value="cambiar_color">';
+            echo '<label for="color">Selecciona un color:</label>';
+            echo '<select name="color" id="color">';
+            echo '<option value="red">Rojo</option>';
+            echo '<option value="yellow">Amarillo</option>';
+            echo '<option value="blue">Azul</option>';
+            echo '<option value="green">Verde</option>';
+            echo '</select>';
+            echo '<button type="submit" class="btn btn-primary">Cambiar color</button>';
+            echo '</form>';
+         }
 
       }
 
@@ -70,7 +88,9 @@
 
          if ($carta_jugada) {
             $this->carta_en_mesa = $carta_jugada;
-            $this->pasarTurno();
+            if ($carta_jugada->num != 13) {
+               $this->pasarTurno();
+            }
          }
       }
 
@@ -87,6 +107,20 @@
          $carta = array_shift($this->baraja);
          array_push($this->baraja, $carta);
          return $carta;
+      }
+
+      //robar una carta
+      public function robarCarta(){
+         $jugador_actual = $this->array_jugadores[$this->turno];
+         $jugador_actual->afegirCarta($this->moverCartaAlFinal());
+         $this->pasarTurno();
+      }
+
+      public function cambiarColor($color){
+         if ($this->carta_en_mesa->num == 13) {
+            $this->carta_en_mesa->palo = $color;
+            $this->pasarTurno();
+         }
       }
    }
 ?>

@@ -8,10 +8,13 @@ include_once 'carta.class.php';
 include_once 'jugador.class.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+   // comprovar formulario enviado 
    if (!isset($_POST['numPlayers']) || !isset($_POST['numCartas'])) {
        header('Location: formulario_uno.php');
        exit;
    } else {
+       // crear partida y guardarla en la sesión
        $prueba = new Baraja(); 
        $prueba->crea_baraja();
        $prueba->mezcla();
@@ -19,21 +22,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        $pruebaPartida = new Partida($_POST['numPlayers'], $_POST['numCartas'], $prueba->getBaraja());
        $_SESSION['partida'] = serialize($pruebaPartida);
    }
+
 } else {
+   // comprovar si hay partida en la sesión
    if (isset($_SESSION['partida'])) {
+      // recuperar partida de la sesión
       $pruebaPartida = unserialize($_SESSION['partida']);
 
-      if (isset($_GET['palo']) && isset($_GET['num'])) {
+      if (isset($_GET['palo']) || isset($_GET['num'])) {
          $pruebaPartida->jugarCarta($_GET['palo'], $_GET['num']);
          $_SESSION['partida'] = serialize($pruebaPartida);
 
       }elseif (isset($_GET['accion']) && $_GET['accion'] == 'robar') {
          $pruebaPartida->robarCarta();
          $_SESSION['partida'] = serialize($pruebaPartida);
+
       } elseif (isset($_GET['accion']) && $_GET['accion'] == 'cambiar_color' && isset($_GET['color'])) {
-         $pruebaPartida->cambiarColor($_GET['color']);
+         $pruebaPartida->jugarCarta($_GET['color'], 13);
          $_SESSION['partida'] = serialize($pruebaPartida);
       }
+
+
    } else {
        header('Location: formulario_uno.php');
        exit;
@@ -57,6 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ?>
       <button class="btn btn-secondary"><a href="logout.php" class="text-decoration-none link-light">Terminar partida</a></button>
    </div>
-   
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

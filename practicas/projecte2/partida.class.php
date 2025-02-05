@@ -16,6 +16,8 @@
          $this->baraja = $baraja;
          $this->turno = 0;
          $this->sentido = 'derecha';
+
+         //color actual para cartas de cambio de color
          $this->color_actual = '';
 
          //crear jugadores
@@ -57,41 +59,32 @@
          echo $this->carta_en_mesa->pinta_carta();
          echo '</div>';
 
-         //formulario para cambiar color
-         if ($this->carta_en_mesa->num == 13) {
-            echo '<form method="GET" action="index.php">';
-            echo '<input type="hidden" name="accion" value="cambiar_color">';
-            echo '<label for="color">Selecciona un color:</label>';
-            echo '<select name="color" id="color">';
-            echo '<option value="red">Rojo</option>';
-            echo '<option value="yellow">Amarillo</option>';
-            echo '<option value="blue">Azul</option>';
-            echo '<option value="green">Verde</option>';
-            echo '</select>';
-            echo '<button type="submit" class="btn btn-primary">Cambiar color</button>';
-            echo '</form>';
-         }
-
       }
 
       public function jugarCarta($palo, $num){
          $jugador_actual = $this->array_jugadores[$this->turno];
-         $carta_jugada = null;
-
+         
+         //buscar carta en la mano del jugador
          foreach ($jugador_actual->mano as $key => $carta) {
-            if ($carta->palo == $palo && $carta->num == $num) {
-               $carta_jugada = $carta;
-               unset($jugador_actual->mano[$key]);
-               break;
+            if ($carta->palo == $palo || $carta->num == $num) {
+               //comprobar si la carta se puede jugar
+               if($carta->palo == $this->carta_en_mesa->palo || $carta->num == $this->carta_en_mesa->num || $carta->num == 13){
+                  if($carta->num == 13){
+                     echo $this->cambiarColor();
+                     return;
+                  }else{
+                     $this->carta_en_mesa = $carta;
+                     unset($jugador_actual->mano[$key]);
+                     $this->pasarTurno();
+                  }
+                  
+               }else{
+                  echo "<script>alert('No puedes jugar esta carta');</script>";
+               }
+
             }
          }
 
-         if ($carta_jugada) {
-            $this->carta_en_mesa = $carta_jugada;
-            if ($carta_jugada->num != 13) {
-               $this->pasarTurno();
-            }
-         }
       }
 
       public function pasarTurno(){
@@ -116,11 +109,26 @@
          $this->pasarTurno();
       }
 
-      public function cambiarColor($color){
-         if ($this->carta_en_mesa->num == 13) {
-            $this->carta_en_mesa->palo = $color;
+      public function cambiarColor(){
+         if (isset($_GET['color'])) {
+            $this->color_actual = $_GET['color'];
+            $this->carta_en_mesa->palo = $this->color_actual;
+            $this->carta_en_mesa->num = 13;
             $this->pasarTurno();
+         } else {
+             return '
+               <form action="" method="GET">
+                     <input type="hidden" name="accion" value="cambiar_color">
+                     <select name="color" id="color">
+                        <option value="red">Rojo</option>
+                        <option value="yellow">Amarillo</option>
+                        <option value="blue">Azul</option>
+                        <option value="green">Verde</option>
+                     </select>
+                     <button type="submit">Enviar</button>
+               </form>
+            ';
          }
-      }
+     }
    }
 ?>

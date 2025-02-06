@@ -49,7 +49,8 @@
       }
       $_SESSION['juego'] = serialize($juego);
    ?>
-   <button class="btn btn-secondary" style="margin-top: 10px"><a href="logout.php">Reiniciar juego</a></button>
+   <button class="btn btn-secondary mt-3"><a href="logout.php" class="link-offset-2 link-underline link-underline-opacity-0 link-light">Reiniciar juego</a></button>
+   <button class="btn btn-secondary mt-3"><a href="../../index.php" class="link-offset-2 link-underline link-underline-opacity-0 link-light">Inicio</a></button>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

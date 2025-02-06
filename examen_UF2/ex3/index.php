@@ -1,59 +1,49 @@
 <?php
    session_start();
 
-   include_once 'CarretCompra.class.php';
+   include_once 'Hotel.class.php';
 
-   if(!isset($_SESSION['carret'])){
-      $_SESSION['carret'] = serialize(new CarretCompra());
+   if(!isset($_SESSION['hotel'])){
+      $_SESSION['hotel'] = new Hotel();
+
+      $_SESSION['hotel'] = serialize($_SESSION['hotel']);
    }
 
-   $carret = unserialize($_SESSION['carret']);
-
+   if (isset($_SESSION['hotel'])) {
+      $facturas = unserialize($_SESSION['hotel']);
+   }
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>El carrito</title>
+   <title>Document</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body class="container">
-   
-   <h1>El carrito</h1>
-   <form action="" method="post">
-      <label for="nom">Nom:</label>
-      <input type="text" name="nom">
-      <label for="preu">Preu:</label>
-      <input type="number" name="preu">
-      <input type="submit" value="Afegir">
-   </form>
-      <?php
-         if(isset($_POST['nom']) && isset($_POST['preu'])){
-            $carret->afegirProducte($_POST['nom'], intval($_POST['preu']));
-         }
+<body>
 
-         echo '
-            <h2>Productes</h2>
-            <table class="table">
-            <thead>
-               <tr>
-                  <th scope="col">Productes</th>
-                  <th scope="col">Preu</th>
-               </tr>
-            </thead>
-            <tbody>
-         ';
-         $carret->mostrarProductes();
+<form action="" method="post">
+      <select class="" aria-label="Default select example" name="hotel">
+         <option value="suit">Suit</option>
+         <option value="doble">doble</option>
+         <option value="individual">individual</option>
+      </select>
+</form>
 
-         echo '<p>Total: ' . $carret->total() . '</p>';
-         
-         $_SESSION['carret'] = serialize($carret);
-      ?>
-      </tbody>
-      </table>
-      <button class="btn btn-secondary mt-3"><a class="link-offset-2 link-underline link-underline-opacity-0 link-light" href="logout.php">Reiniciar carrito</a></button>
+<?php
+   if(isset($_POST['hotel'])){
+      $facturas->reservarHabitacio($_POST['hotel']);
+      echo $facturas->llistarHabitacions();
+   }else{
+      echo $facturas->mostrarDisponibilitat();
+   }
+?>
+
+   <button class="btn btn-secondary mt-3"><a href="logout.php" class="link-offset-2 link-underline link-underline-opacity-0 link-light">Reiniciar juego</a></button>
+   <button class="btn btn-secondary mt-3"><a href="../index.php" class="link-offset-2 link-underline link-underline-opacity-0 link-light">Inicio</a></button>
+
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,0 +1,190 @@
+# Guia Projecte UF3 - CRUD PHP - MySQL
+
+## Objectiu
+
+Crear un lloc web per a una empresa (la temàtica i identitat s'estableixen en el primer sprint) a partir del template "Agen Bootstrap" (disponible a Agen Theme - Themefisher). El projecte es dinamitzarà progressivament: es convertiran seccions estàtiques en dinàmiques (integrant contingut procedent d’una base de dades MySQL), s’implementarà un sistema d’autenticació amb rols diferenciats i es desenvoluparà un panell d’administració per gestionar els continguts (CRUD per a usuaris, notícies, portfolio, testimonis i FAQS). A més, s’inclourà una pàgina de contacte amb formulari, integració d’un mapa i secció de preguntes freqüents.
+
+## Metodologia
+
+**Enfocament:** Agile Scrum, amb sprints dividits en històries  
+**Estructura:** Cada sprint contindrà diverses històries.  
+**Història 1 de cada sprint:** Plantejament i documentació de les consultes SQL necessàries (SELECT, INSERT, UPDATE, DELETE).  
+**Històries següents:** Desenvolupament i integració de la funcionalitat corresponent
+
+---
+
+## SPRINT 1: Configuració inicial i deploy del template
+
+### Objectius:
+- Descarregar el template "Agen Bootstrap".
+- Definir la identitat de l’empresa (nom, sector, serveis, etc.) per orientar el contingut.
+- Fer el deploy inicial a Alwaysdata.
+- Adaptar el template a PHP (convertir fitxers HTML a PHP, crear includes per a header/footer, etc.) i netejar els elements que no s’ajustin al projecte.
+
+### Històries:
+
+#### Historia 1.1 – Descàrrega i definició de l’empresa:
+- Descarregar el template i analitzar quines seccions s’utilitzaran.
+- Decidir la temàtica i l’estil de l’empresa per orientar el contingut.
+
+#### Historia 1.2 – Deploy inicial i adaptació a PHP:
+- Fer el deploy inicial a Alwaysdata.
+- Convertir els fitxers a PHP, crear includes comuns i eliminar o adaptar les seccions que no encaixen amb la nova identitat.
+
+### Criteris d’acceptació:
+- La web es mostra correctament a l’URL d’Alwaysdata.
+- La base de codi està adaptada a PHP i reflecteix la identitat de l’empresa definida.
+
+---
+
+## SPRINT 2: Disseny de la base de dades i esquema ER
+
+### Objectius:
+- Crear l’esquema ER amb totes les taules, entitats i atributs (usuaris, notícies, portfolio, testimonis, FAQS, comentaris, etc.).
+- Dibuixar el diagrama ER (utilitzant eines com MySQL Workbench, draw.io, etc.) per validar entitats i relacions.
+- Configurar la base de dades a Alwaysdata (creant un usuari i assignant una contrasenya).
+
+### Històries:
+
+#### Història 2.1 – Plantejament de consultes futures i Diagrama ER:
+- Documentar les consultes SQL per llegir les dades de cada taula.
+  - Llegir totes les notícies ordenades per data.
+  - Llegir només les 3 darreres notícies (per data).
+  - Llegir tots els camps d’una notícia per ID.
+  - Llegir els camps dels testimonis (foto, nom, cognom, testimoni).
+  - Llegir tots els projectes (portfoli).
+  - Llegir comentaris ordenats per data associats a una noticia i obtenint la informació del comentari i del usuari que ha fet la noticia (nom, cognom, foto, id_user).
+  - Llegir comentaris de resposta a un altre comentari (vinculat per ID).
+  - Llegir preguntes freqüents (FAQ’S).
+- Documentar les consultes SQL per afegir les dades de cada taula.
+  - Si ets user amb rol user has de poder:
+    - Afegir comentaris i respondre comentaris.
+    - Editar els teus propis comentaris.
+    - Eliminar els teus propis comentaris.
+  - Si ets user amb rol admin:
+    - Afegir, Eliminar, Editar, Llegir: tots els usuaris, testimonis, projectes, notícies, comentaris…
+
+#### Història 2.2 – Configuració de la base de dades:
+- Crear la base de dades a Alwaysdata.
+- Configurar l’usuari amb els permisos corresponents.
+
+#### Història 2.3 – Creació de taules i inserció de dades:
+- Crear les taules a MySQL de manera manual o amb codi.
+- Inserir dades d’exemple per a proves i validació.
+- Prova les consultes en el propi entorn PHPMyAdmin.
+
+### Criteris d’acceptació:
+- L’esquema ER està complet i validat.
+- La base de dades es crea correctament amb totes les taules i les dades d’exemple estan disponibles.
+- Totes les consultes es fan correctament.
+
+---
+
+## SPRINT 3: Dinamització de Contingut – Portfolio, Testimonis i Blog
+
+### Objectius:
+- Convertir seccions estàtiques en dinàmiques fent que el contingut (portfolio, testimonis i notícies del blog) es carregui des de la base de dades.
+
+### Històries:
+
+#### Història 3.1 – Plantejament de consultes per dinamitzar el contingut:
+- Documentar les consultes per recuperar projectes del portfolio, testimonis i notícies (incloent la recuperació de les 3 últimes notícies, ordenades per data).
+
+#### Història 3.2 – Dinamització de la secció portfolio i testimonis:
+- Desenvolupar el codi PHP per recuperar i mostrar el contingut dinàmic del portfolio i testimonis a partir de la base de dades.
+
+#### Història 3.3 – Dinamització del blog i detall de notícies:
+- Implementar la visualització de les 3 últimes notícies a la pàgina d’inici.
+- Desenvolupar la pàgina “blog.php” per mostrar totes les notícies.
+- Crear la pàgina de detall per a cada notícia amb la possibilitat de veure els comentaris associats.
+
+### Criteris d’acceptació:
+- Les seccions portfolio i testimonis es mostren de manera dinàmica.
+- La pàgina d’inici mostra correctament les 3 últimes notícies i la pàgina del blog ofereix l’accés al detall de cadascuna.
+
+---
+
+## SPRINT 4: Gestió d’usuaris – Registre i Login
+
+### Objectius:
+- Permetre el registre i login d’usuaris amb seguretat (usant hashing i password_verify).
+- Diferenciar els rols d’usuari (usuari normal per defecte i admin, que es pot assignar manualment o mitjançant funcionalitat futura).
+
+### Històries:
+
+#### Història 4.1 – Plantejament de consultes per gestió d’usuaris:
+- Documentar les consultes necessàries per inserir nous usuaris, recuperar dades d’usuaris per al login i gestionar els rols.
+
+#### Història 4.2 – Desenvolupament del sistema de registre i login:
+- Crear els formularis de registre i login.
+- Implementar el hash de les contrasenyes amb password_hash i la verificació amb password_verify.
+
+#### Història 4.3 – Validació i gestió de rols:
+- Assignar el rol “user” per defecte al registre.
+- Configurar la redirecció i limitació d’accions segons el rol (per exemple, només els admins poden accedir a funcionalitats avançades).
+
+### Criteris d’acceptació:
+- Els usuaris poden registrar-se i iniciar sessió correctament.
+- La seguretat de les contrasenyes i la gestió dels rols funcionen segons el disseny.
+
+---
+
+## SPRINT 5: Panell d’administració (Admin Panel)
+
+### Objectius:
+- Desenvolupar un panell d’administració accessible només per a usuaris amb rol admin.
+- Permetre operacions CRUD per a totes les entitats: usuaris, notícies, portfolio, testimonis, comentaris (de tothom) i FAQ’s.
+
+### Històries:
+
+#### Història 5.1 – Plantejament de consultes per al panell d’administració:
+- Documentar les consultes SQL per cada operació CRUD en totes les entitats.
+
+#### Història 5.2 – Desenvolupament de la interfície bàsica del panell:
+- Dissenyar la interfície (p. ex., la pàgina admin.php) amb botons de navegació, taules d’elements i accions (editar, eliminar, afegir).
+
+#### Història 5.3 – Integració de funcionalitats CRUD completes:
+- Implementar la funcionalitat per editar, afegir i eliminar registres en cada entitat.
+- Afegir validacions i feedback (missatges de confirmació, errors, etc.).
+- Podeu utilitzar tooltips o semblants des de la documentació de Bootstrap.
+
+### Criteris d’acceptació:
+- Només els administradors poden accedir al panell d’administració.
+- Totes les operacions CRUD funcionen correctament i els canvis es reflecteixen a la base de dades.
+
+---
+
+## SPRINT 6 - EXTRA: Pàgina de contacte i funcionalitats addicionals
+
+### Objectius:
+- Desenvolupar una pàgina de contacte amb funcionalitats extra, com ara l’enviament del formulari per correu, integració d’un mapa (Google Maps) i una secció de FAQS dinàmica.
+
+### Històries:
+
+#### Història 6.1 – Plantejament de consultes per a la pàgina de contacte:
+- Documentar les consultes per recuperar/inserir dades relacionades amb el formulari de contacte i les FAQS.
+
+#### Història 6.2 – Desenvolupament del formulari i enviament de correus:
+- Crear el formulari de contacte amb validació i implementar el backend per enviar correus (usant mail() o PHPMailer).
+
+#### Història 6.3 – Integració de Google Maps i secció FAQS:
+- Inserir un mapa interactiu amb la ubicació de l’empresa (integració amb l’API de Google Maps).
+- Fer que la secció FAQS es carregui dinàmicament desde la base de dades i sigui gestionable vía el panell d’administració.
+
+### Criteris d’acceptació:
+- El formulari de contacte funciona correctament i s’envia el correu.
+- El mapa es mostra amb la ubicació correcta.
+- La secció FAQS mostra el contingut dinàmic i és actualitzable.
+
+---
+
+## Consideracions finals
+
+### Revisió i ajustaments:
+En cada sprint, cal fer una reunió de revisió per validar els objectius assolits i ajustar el pla si és necessari.
+
+### Documentació de consultes:
+El document de consultes SQL (el primer sprint de cada història) servirà de guia tant per al desenvolupament com per a la resolució de dubtes durant la implementació.
+
+### Seguiment del progrés:
+Utilitzeu el full de càlcul per fer un seguiment col·lectiu i individual dels sprints completats, cosa que us ajudarà a identificar bloqueigs i a planificar els següents passos.

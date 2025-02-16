@@ -1,7 +1,7 @@
 <?php
    include_once '../header.php';
    include_once '../nav.php';
-   $titulo = "Observer";
+   $titulo = "Patrons de Disseny";
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
       <?= navbar()?> 
       <section>
          <?= titulo($titulo);?>
-         <p>Observer es un patrón de diseño de comportamiento que te permite definir un mecanismo de suscripción para notificar a varios objetos sobre cualquier evento que le suceda al objeto que están observando.</p>
+         <p>Bridge es un patrón de diseño estructural que te permite dividir una clase grande, o un grupo de clases estrechamente relacionadas, en dos jerarquías separadas (abstracción e implementación) que pueden desarrollarse independientemente la una de la otra.</p>
       </section>
    </div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

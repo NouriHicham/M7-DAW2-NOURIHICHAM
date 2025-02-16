@@ -3,19 +3,19 @@
 if (isset($_GET['patrones'])) {
    switch ($_GET['patrones']) {
       case 'home':
-         header('Location: index.php');
+         header('Location: /projecteWeb_PatronsDisseny/index.php');
          break;
       case 'estructural':
-         header('Location: estructural.php');
+         header('Location: /projecteWeb_PatronsDisseny/estructural.php');
          break;
       case 'creacio':
-         header('Location: creacion.php');
+         header('Location: /projecteWeb_PatronsDisseny/creacion.php');
          break;
       case 'comportament':
-         header('Location: comportament.php');
+         header('Location: /projecteWeb_PatronsDisseny/comportament.php');
          break;
       default:
-         header('Location: index.php');
+         header('Location: /projecteWeb_PatronsDisseny/index.php');
          break;
    }
 }

@@ -1,7 +1,7 @@
 <?php
    include_once '../header.php';
    include_once '../nav.php';
-   $titulo = "Observer";
+   $titulo = "Command";
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@
       <?= navbar()?> 
       <section>
          <?= titulo($titulo);?>
-         <p>Observer es un patrón de diseño de comportamiento que te permite definir un mecanismo de suscripción para notificar a varios objetos sobre cualquier evento que le suceda al objeto que están observando.</p>
+         <p>Command es un patrón de diseño de comportamiento que convierte una solicitud en un objeto independiente que contiene toda la información sobre la solicitud. Esta transformación te permite parametrizar los métodos con diferentes solicitudes, retrasar o poner en cola la ejecución de una solicitud y soportar operaciones que no se pueden realizar.</p>
       </section>
    </div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

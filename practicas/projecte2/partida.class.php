@@ -61,6 +61,17 @@
 
       }
 
+      private function puedeJugarCarta($carta) {
+         // Comprobar si la carta se puede jugar
+         if ($carta->palo == $this->carta_en_mesa->palo || $carta->num == $this->carta_en_mesa->num || $carta->num == 13) {
+             return true;
+         }else if($this->carta_en_mesa == 13){
+            
+         } else {
+             return false;
+         }
+     }
+
       public function jugarCarta($palo, $num){
          $jugador_actual = $this->array_jugadores[$this->turno];
          

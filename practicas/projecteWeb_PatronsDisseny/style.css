@@ -1,0 +1,9 @@
+.tarjeta{
+   background-color: rgb(212, 212, 212);
+   border-radius: 15px;
+   padding: 20px;
+}
+
+body{
+   background-color: rgb(139, 5, 32);
+}

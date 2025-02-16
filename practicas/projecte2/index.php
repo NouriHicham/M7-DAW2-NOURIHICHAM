@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_GET['accion'])) {
          if ($_GET['accion'] == 'robar') {
             $pruebaPartida->robarCarta();
-            
+
          } elseif ($_GET['accion'] == 'cambiar_color' && isset($_GET['color'])) {
             $pruebaPartida->cambiarColor();
          }
@@ -56,7 +56,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Juego del UNO</title>
+   <title>Uno - <?php 
+         if (isset($_GET['palo'])) {
+            if ($_GET['palo'] == 'red') {
+               echo '🟥';
+            } elseif ($_GET['palo'] == 'yellow') {
+               echo '🟨';
+            } elseif ($_GET['palo'] == 'blue') {
+               echo '🟦';
+            } elseif ($_GET['palo'] == 'green') {
+               echo '🟩';
+            } elseif (!isset($_GET['palo'])){
+               echo '⬛';
+            }else{
+               echo '⬛';
+            }
+         }
+      ?></title>
    <link rel="stylesheet" href="styles.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>

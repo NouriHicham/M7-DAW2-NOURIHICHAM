@@ -29,16 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // recuperar partida de la sesión
       $pruebaPartida = unserialize($_SESSION['partida']);
 
-      if (isset($_GET['palo']) || isset($_GET['num'])) {
+      if (isset($_GET['accion'])) {
+         if ($_GET['accion'] == 'robar') {
+            $pruebaPartida->robarCarta();
+            
+         } elseif ($_GET['accion'] == 'cambiar_color' && isset($_GET['color'])) {
+            $pruebaPartida->cambiarColor();
+         }
+         $_SESSION['partida'] = serialize($pruebaPartida);
+
+      } elseif (isset($_GET['palo']) || isset($_GET['num'])) {
          $pruebaPartida->jugarCarta($_GET['palo'], $_GET['num']);
-         $_SESSION['partida'] = serialize($pruebaPartida);
-
-      }elseif (isset($_GET['accion']) && $_GET['accion'] == 'robar') {
-         $pruebaPartida->robarCarta();
-         $_SESSION['partida'] = serialize($pruebaPartida);
-
-      } elseif (isset($_GET['accion']) && $_GET['accion'] == 'cambiar_color' && isset($_GET['color'])) {
-         $pruebaPartida->jugarCarta($_GET['color'], 13);
          $_SESSION['partida'] = serialize($pruebaPartida);
       }
 

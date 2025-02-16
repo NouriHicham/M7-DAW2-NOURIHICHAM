@@ -34,6 +34,12 @@
 
          //carta en mesa
          $this->carta_en_mesa = $this->moverCartaAlFinal();
+
+         if ($this->carta_en_mesa->num == 13) {
+            array_push($this->baraja, $this->carta_en_mesa);
+            $this->carta_en_mesa = $this->moverCartaAlFinal();
+        }
+         
       }
 
       public function jugar(){
@@ -61,16 +67,7 @@
 
       }
 
-      private function puedeJugarCarta($carta) {
-         // Comprobar si la carta se puede jugar
-         if ($carta->palo == $this->carta_en_mesa->palo || $carta->num == $this->carta_en_mesa->num || $carta->num == 13) {
-             return true;
-         }else if($this->carta_en_mesa == 13){
-            
-         } else {
-             return false;
-         }
-     }
+
 
       public function jugarCarta($palo, $num){
          $jugador_actual = $this->array_jugadores[$this->turno];
@@ -80,22 +77,65 @@
             if ($carta->palo == $palo || $carta->num == $num) {
                //comprobar si la carta se puede jugar
                if($carta->palo == $this->carta_en_mesa->palo || $carta->num == $this->carta_en_mesa->num || $carta->num == 13){
-                  if($carta->num == 13){
+                  if($carta->num == 13){ //cambio color
+                     $this->carta_en_mesa = $carta;
+                     unset($jugador_actual->mano[$key]);
                      echo $this->cambiarColor();
+                     $this->verificarGanador($jugador_actual);
                      return;
-                  }else{
+
+                  } elseif ($carta->num == 10) { // +2
+                     printf("carta +2\n");
                      $this->carta_en_mesa = $carta;
                      unset($jugador_actual->mano[$key]);
                      $this->pasarTurno();
+                     $this->verificarGanador($jugador_actual);
+                     return;
+
+                  } elseif ($carta->num == 11) { // Cambio de sentido
+                     printf("cambio de sentido\n");
+                     if ($this->sentido == 'derecha') {
+                        $this->sentido = 'izquierda';
+                     } else {
+                        $this->sentido = 'derecha';
+                     }
+                     $this->carta_en_mesa = $carta;
+                     unset($jugador_actual->mano[$key]);
+                     $this->pasarTurno();
+                     $this->verificarGanador($jugador_actual);
+                     return;
+
+                  } elseif ($carta->num == 12) { // Salto de turno
+                     printf("salto de turno\n");
+                     $this->carta_en_mesa = $carta;
+                     unset($jugador_actual->mano[$key]);
+                     $this->pasarTurno();
+                     $this->pasarTurno();
+                     $this->verificarGanador($jugador_actual);
+                     return;
+
+                  }else {
+                     $this->carta_en_mesa = $carta;
+                     unset($jugador_actual->mano[$key]);
+                     $this->pasarTurno();
+                     $this->verificarGanador($jugador_actual);
+                     return;
                   }
                   
                }else{
-                  echo "<script>alert('No puedes jugar esta carta');</script>";
+                  printf("La carta no se puede jugar\n");
                }
 
             }
          }
 
+      }
+
+      private function verificarGanador($jugador_actual) {
+         if (count($jugador_actual->mano) == 0) {
+             header('Location: ganador.php');
+             exit;
+         }
       }
 
       public function pasarTurno(){
@@ -123,8 +163,7 @@
       public function cambiarColor(){
          if (isset($_GET['color'])) {
             $this->color_actual = $_GET['color'];
-            $this->carta_en_mesa->palo = $this->color_actual;
-            $this->carta_en_mesa->num = 13;
+            $this->carta_en_mesa = new Carta($this->color_actual, 13);    
             $this->pasarTurno();
          } else {
              return '

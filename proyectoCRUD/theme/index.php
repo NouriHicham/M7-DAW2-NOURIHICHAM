@@ -1,3 +1,15 @@
+<?php
+  require_once 'config.php';
+
+  $users = $mysqli->query("SELECT * FROM USERS order by id desc")->fetch_all(MYSQLI_ASSOC);
+  $projects = $mysqli->query("SELECT * FROM PROJECTS order by id desc")->fetch_all(MYSQLI_ASSOC);
+  $ultimasNoticias = $mysqli->query("SELECT * FROM NEWS ORDER BY new_date DESC LIMIT 3;")->fetch_all(MYSQLI_ASSOC);
+  // echo '<pre>';
+  // var_dump($users);
+  // echo '</pre>';
+
+?>
+
 <!DOCTYPE html>
 <!--
  // WEBSITE: https://themefisher.com
@@ -167,42 +179,21 @@
         </div>
       </div>
       <div class="row no-gutters">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center position-relative zindex-1">
-              <h4><a class="text-dark" href="team-single.php">Sara Adams</a></h4>
-              <i>Designer</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center position-relative zindex-1">
-              <h4><a class="text-dark" href="team-single.php">Tom Bills</a></h4>
-              <i>Developer</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center position-relative zindex-1">
-              <h4><a class="text-dark" href="team-single.php">Anna Walle</a></h4>
-              <i>Manager</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-4.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center">
-              <h4>Devid Json</h4>
-              <i>CEO</i>
-            </div>
-          </div>
-        </div>
+        <?php
+          foreach($users as $user){
+            echo '
+              <div class="col-lg-3 col-sm-6">
+                <div class="card hover-shadow">
+                  <img src="images/team/'.$user['avatar'].'" alt="team-member" class="card-img-top">
+                  <div class="card-body text-center position-relative zindex-1">
+                    <h4><a class="text-dark" href="team-single.php">'.$user['name'].' '.$user['surname'].'</a></h4>
+                    <i>'.$user['job'].'</i>
+                  </div>
+                </div>
+              </div>
+            ';
+          }
+        ?>
       </div>
     </div>
   </section>
@@ -219,51 +210,21 @@
       </div>
 
       <div class="row no-gutters shuffle-wrapper">
-        <div class="col-lg-4 col-md-6 shuffle-item">
-          <div class="project-item">
-            <img src="images/project/project-1.jpg" alt="project-image" class="img-fluid w-100">
-            <div class="project-hover bg-secondary px-4 py-3">
-              <a href="#" class="text-white h4">Project title</a>
-              <a href="#"><i class="ti-link icon-xs text-white"></i></a>
+        <?php
+          foreach($projects as $project){
+            echo '
+            <div class="col-lg-4 col-md-6 shuffle-item">
+              <div class="project-item">
+                <img src="images/project/'.$project['thumbnail'].'" alt="project-image" class="img-fluid w-100">
+                <div class="project-hover bg-secondary px-4 py-3">
+                  <a href="'.$project['url'].'" class="text-white h4">'.$project['title'].'</a>
+                  <a href="'.$project['url'].'"><i class="ti-link icon-xs text-white"></i></a>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 shuffle-item">
-          <div class="project-item">
-            <img src="images/project/project-2.jpg" alt="project-image" class="img-fluid w-100">
-            <div class="project-hover bg-secondary px-4 py-3">
-              <a href="#" class="text-white h4">Project title</a>
-              <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 shuffle-item">
-          <div class="project-item">
-            <img src="images/project/project-3.jpg" alt="project-image" class="img-fluid w-100">
-            <div class="project-hover bg-secondary px-4 py-3">
-              <a href="#" class="text-white h4">Project title</a>
-              <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 shuffle-item">
-          <div class="project-item">
-            <img src="images/project/project-4.jpg" alt="project-image" class="img-fluid w-100">
-            <div class="project-hover bg-secondary px-4 py-3">
-              <a href="#" class="text-white h4">Project title</a>
-              <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-md-6 shuffle-item">
-          <div class="project-item">
-            <img src="images/project/project-5.jpg" alt="project-image" class="img-fluid w-100">
-            <div class="project-hover bg-secondary px-4 py-3">
-              <a href="#" class="text-white h4">Project title</a>
-              <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-            </div>
-          </div>
-        </div>
+          ';
+          }
+        ?>
       </div>
     </div>
   </section>
@@ -279,39 +240,22 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-          <article class="card">
-            <img src="images/blog/post-1.jpg" alt="post-thumb" class="card-img-top mb-2">
-            <div class="card-body p-0">
-              <time>January 15, 2018</time>
-              <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-                Book Covers Reflect the Design</a>
-              <a href="#" class="btn btn-transparent">Read more</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-          <article class="card">
-            <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-            <div class="card-body p-0">
-              <time>January 15, 2018</time>
-              <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-                Book Covers Reflect the Design</a>
-              <a href="#" class="btn btn-transparent">Read more</a>
-            </div>
-          </article>
-        </div>
-        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-          <article class="card">
-            <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-            <div class="card-body p-0">
-              <time>January 15, 2018</time>
-              <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-                Book Covers Reflect the Design</a>
-              <a href="#" class="btn btn-transparent">Read more</a>
-            </div>
-          </article>
-        </div>
+        <?php
+          foreach($ultimasNoticias as $noticia){
+            echo '
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                <article class="card">
+                  <img src="images/blog/'.$noticia['thumbnail'].'" alt="post-thumb" class="card-img-top mb-2">
+                  <div class="card-body p-0">
+                    <time>'.$noticia['new_date'].'</time>
+                    <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">'.$noticia['title'].'</a>
+                    <a href="blog-single.php?id='.$noticia['id'].'" class="btn btn-transparent">Read more</a>
+                  </div>
+                </article>
+              </div>
+            ';
+          }
+        ?>
       </div>
     </div>
   </section>

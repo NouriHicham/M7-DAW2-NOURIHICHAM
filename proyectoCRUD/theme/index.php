@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once 'config.php';
 
   $users = $mysqli->query("SELECT * FROM USERS order by id desc")->fetch_all(MYSQLI_ASSOC);
@@ -79,6 +80,25 @@
           <li class="nav-item">
             <a class="nav-link" href="portfolio.php">Portfolio</a>
           </li>
+          <?php if(isset($_SESSION['id'])){
+                  echo '
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="'.$_SESSION['avatar'].'" style="border-radius:100px; height:45px; width:45px; margin-top:-10px;"/></a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="perfil.php">Perfil</a>
+                          <a class="dropdown-item" href="logout.php">Cerrar sesion</a>
+                        ';
+                    if($_SESSION['role'] == 'admin'){
+                      echo '<a class="dropdown-item" href="/admin/admin.php">Panel de administrador</a>';
+                    }
+                  echo '</div></li>';
+                  }else{
+                    echo '<li class="nav-item">
+                          <a class="nav-link" href="login.php">Iniciar sesion</a>
+                        </li>';
+                  }
+          ?>
+          <img src="" alt="">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
             <div class="dropdown-menu">
@@ -179,21 +199,42 @@
         </div>
       </div>
       <div class="row no-gutters">
-        <?php
-          foreach($users as $user){
-            echo '
-              <div class="col-lg-3 col-sm-6">
-                <div class="card hover-shadow">
-                  <img src="images/team/'.$user['avatar'].'" alt="team-member" class="card-img-top">
-                  <div class="card-body text-center position-relative zindex-1">
-                    <h4><a class="text-dark" href="team-single.php">'.$user['name'].' '.$user['surname'].'</a></h4>
-                    <i>'.$user['job'].'</i>
-                  </div>
-                </div>
-              </div>
-            ';
-          }
-        ?>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Antonia</a></h4>
+            <i>Jefaza</i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-4.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Gutierrez</a></h4>
+            <i>Informatico</i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Juan</a></h4>
+            <i>Desempleado</i>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Dedos</a></h4>
+            <i>de la mano</i>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </section>

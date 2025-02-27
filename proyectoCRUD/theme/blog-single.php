@@ -4,7 +4,10 @@ include_once 'config.php';
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
   $noticia = $mysqli->query("SELECT * FROM NEWS WHERE id= $id;")->fetch_all(MYSQLI_ASSOC);
-  $comments = $mysqli->query("SELECT * FROM COMMENTS WHERE new_id= $id;")->fetch_all(MYSQLI_ASSOC);
+  $comments = $mysqli->query("SELECT c1.id, c1.new_id, c1.comment_id, c1.description, c1.date, c2.id AS reply_id, c2.description AS reply_text, c2.date AS reply_date FROM COMMENTS c1
+        LEFT JOIN COMMENTS c2 ON c1.id = c2.comment_id
+        WHERE c1.new_id = $id
+        ORDER BY c1.date ASC, c2.date ASC;")->fetch_all(MYSQLI_ASSOC);
 } else {
   header("Location: blog.php");
   exit;
@@ -139,70 +142,43 @@ echo '</pre>';
         <div class="col-lg-10 mx-auto">
           <div class="p-5 mb-4">
             <?php
-            foreach ($comments as $comment) {
-              print_r($comment);
-              if ($comment['comment_id'] == 10) {
+            
+            $comentariosPrincipales = array_filter($comments, function ($comment) {
+              return is_null($comment['reply_id']);
+            });
+
+            foreach ($comentariosPrincipales as $comment) {
+              if (is_null($comment['comment_id'])) {
                 echo ' 
-                    <div class="media border-bottom py-4">holaaaaa
+                    <div class="media border-bottom py-4">
                       <img src="images/user-1.jpg" class="img-fluid align-self-start mr-3" alt="">
                       <div class="media-body">
                         <h5 class="mb-0 text-secondary">Carole Marvin.</h5>
                         <span class="mr-3">' . $comment['date'] . '</span>
                         <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
                         <p>' . $comment['description'] . '</p>';
-                foreach ($comment as $commentdeComment) {
-                  if ($comment['id'] == $commentdeComment['comment_id']) {
+                foreach ($comment as $respuesta) {
+                  if ($respuesta['comment_id'] == $comment['id']) {
                     echo '
                         <div class="media my-5">
                           <img src="images/user-2.jpg" class="img-fluid align-self-start mr-3" alt="">
                           <div class="media-body">
                             <h5 class="mb-0 text-secondary">Jaquan Rolfson.</h5>
-                            <span class="mr-3">' . $commentdeComment['date'] . '</span>
+                            <span class="mr-3">' . $respuesta['date'] . '</span>
                             <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
-                            <p>' . $commentdeComment['description'] . '</p>
+                            <p>' . $respuesta['description'] . '</p>
                           </div>
                         </div>
                     ';
                   }
                 }
-
-
                 echo '</div></div>';
               }
             }
             ?>
-            <div class="media border-bottom py-4">
-              <img src="images/user-1.jpg" class="img-fluid align-self-start mr-3" alt="">
-              <div class="media-body">
-                <h5 class="mb-0 text-secondary">Carole Marvin.</h5>
-                <span class="mr-3">15 january 2015 At 10:30 pm</span>
-                <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
-                <p>Ne erat velit invidunt his. Eum in dicta veniam interesset, harum fuisset te nam ea cu lupta
-                  definitionem.</p>
-                <div class="media my-5">
-                  <img src="images/user-2.jpg" class="img-fluid align-self-start mr-3" alt="">
-                  <div class="media-body">
-                    <h5 class="mb-0 text-secondary">Jaquan Rolfson.</h5>
-                    <span class="mr-3">15 january 2015 At 10:30 pm</span>
-                    <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
-                    <p>Ne erat velit invidunt his. Eum in dicta veniam interesset, harum fuisset te nam ea cu lupta
-                      definitionem.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="media py-4">
-              <img src="images/user-1.jpg" class="img-fluid align-self-start mr-3" alt="">
-              <div class="media-body">
-                <h5 class="mb-0 text-secondary">Bruce Bernier.</h5>
-                <span class="mr-3">15 january 2015 At 10:30 pm</span>
-                <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
-                <p>Ne erat velit invidunt his. Eum in dicta veniam interesset, harum fuisset te nam ea cu lupta
-                  definitionem.</p>
-              </div>
-            </div>
-          </div>
-          <h4 class="mb-3 pb-3 text-secondary">Leave a Comment</h4>
+
+            
+          <h4 class="mt-3 mb-3 pb-3 text-secondary">Leave a Comment</h4>
           <form action="#" class="row">
             <div class="col-12">
               <textarea name="comment" id="comment" placeholder="Message" class="form-control mb-4 border"></textarea>

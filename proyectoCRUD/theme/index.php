@@ -54,7 +54,6 @@
 
 <body>
 
-
   <header class="navigation fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>

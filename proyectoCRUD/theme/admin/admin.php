@@ -28,21 +28,19 @@
                   </a>
                   <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                      <li class="nav-item">
-                           <a href="../index.php" class="nav-link align-middle px-0">
-                              <span class="ms-1 d-none d-sm-inline">🏠 Home</span>
-                           </a>
+                           <a href="../index.php" class="nav-link align-middle px-0"><span class="ms-1 d-none d-sm-inline">🏠 Home</span></a>
                      </li>
                      <li>
-                           <a href="./projects/add-project.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Proyectos</span></a>
+                           <a href="./projects/project.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Proyectos</span></a>
                      </li>
                      <li>
-                           <a href="./testimonials/add-testimonials.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Testimonios</span></a>
+                           <a href="./testimonials/testimonials.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Testimonios</span></a>
                      </li>
                      <li>
-                           <a href="./news/add-news.ph" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Noticias</span></a>
+                           <a href="./news/news.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Noticias</span></a>
                      </li>
                      <li>
-                           <a href="./users/add-user.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Usuarios</span></a>
+                           <a href="./users/user.php" class="nav-link px-0 align-middle"><span class="ms-1 d-none d-sm-inline">Usuarios</span></a>
                      </li>
                   </ul>
                   <hr>
@@ -74,7 +72,6 @@
                   <th scope="col">Edad</th>
                   <th scope="col">Trabajo</th>
                   <th scope="col">Rol</th>
-                  <th scope="col">Acciones</th>
                </tr>
                </thead>
                <tbody>
@@ -104,7 +101,6 @@
                   <th>Descripción</th>
                   <th>Foto</th>
                   <th>Puntuación</th>
-                  <th>Acciones</th>
                </tr>
 
                <?php
@@ -120,9 +116,6 @@
                      for($i=1; $i<=$testimonial['rating']; $i++){
                         echo '<span>⭐</span>';
                      }
-                     echo "</td>";
-                     echo '<td> <span><a href="./testimonials/delete-testimonials.php?id='.$testimonial['id'].'" style="text-decoration: none;">🗑️</a></span> </td>';
-                     echo "</tr>";
                   }
                ?>
             </table>
@@ -136,7 +129,6 @@
                   <th>Subtitulo</th>
                   <th>Contenido</th>
                   <th>Foto</th>
-                  <th>Acciones</th>
                </tr>
 
                <?php
@@ -149,11 +141,31 @@
                      echo "<td>".$new['subtitle']."</td>";
                      echo "<td>".$new['description']."</td>";
                      echo "<td><img src='uploads/testimonials/".$new['thumbnail']."' alt='Foto testimonio".$new['id']."'></td>";
-                     echo '<td> <span><a href="./testimonials/delete-testimonials.php?id='.$testimonial['id'].'" style="text-decoration: none;">🗑️</a></span> </td>';
                      echo "</tr>";
                   }
                ?>
             </table>
+
+            <div class="col-12 mt-5">
+               <h2 class="mx-4">Últimos proyectos añadidos</h2>
+               <div class="row row-cols-1 row-cols-md-3 g-4">
+                  <?php
+                     $projects = $mysqli->query("SELECT * FROM PROJECTS order by id desc LIMIT 6")->fetch_all(MYSQLI_ASSOC);
+
+                     foreach($projects as $project){
+                        echo '<div class="col">';
+                        echo '<div class="card shadow-sm">';
+                        echo '<img src="uploads/projects/'.$project['thumbnail'].'" class="card-img-top" alt="Thumbnail '.$project['title'].'">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">'.$project['title'].'</h5>';
+                        echo '<p class="card-text">'.$project['description'].'</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                     }
+                  ?>
+               </div>
+            </div>
 
             
             </div>

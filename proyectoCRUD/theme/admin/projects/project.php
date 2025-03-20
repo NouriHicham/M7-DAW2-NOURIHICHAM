@@ -51,8 +51,8 @@
          }
       }
 
-      $stmt = $mysqli->prepare("INSERT INTO TESTIMONIALS (name, surname, description, photo, rating) VALUES (?,?,?,?,?)");
-      $stmt->bind_param("sssss", $nombre, $apellido, $description, $foto, $puntuacion);
+      $stmt = $mysqli->prepare("INSERT INTO PROJECTS (title, thumbnail, url, description) VALUES (?,?,?,?)");
+      $stmt->bind_param("ssss", $titulo, $foto, $url, $description);
       
       if($stmt->execute()){
          echo '<p>Proyecto añadido correctamente.</p>';
@@ -117,7 +117,7 @@
    </div>
    </div>
 
-   <h1>Listado de testimonios</h1>
+   <h1>Listado de proyectos</h1>
    <table class="table mx-4">
       <thead>
          <tr>
@@ -137,7 +137,7 @@
                echo "<td>".$project['id']."</td>";
                echo "<td>".$project['title']."</td>";
                echo "<td>".substr($project['description'],0,40)." ...</td>";
-               echo "<td><img src='".$project['photo']."' alt='Foto proyecto".$project['id']."' height='70px' width='auto'></td>";
+               echo "<td><img src='".$project['thumbnail']."' alt='Foto proyecto".$project['id']."' height='70px' width='auto'></td>";
                echo "<td><a href='".$project['url']."' target='_blank' class='btn btn-primary' style='text-decoration: none;'>".$project['url']."</a></td>";
                echo '<td><a href="delete-project.php?id='.$project['id'].'" class="btn btn-light" style="text-decoration: none;">🗑️</a></td>';
                echo '<td><a href="edit-project.php?id='.$project['id'].'" class="btn btn-light" style="text-decoration: none;">🖊️</a></td>';

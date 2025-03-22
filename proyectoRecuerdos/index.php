@@ -36,6 +36,11 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+        a{
+            color: #4f46e5;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>

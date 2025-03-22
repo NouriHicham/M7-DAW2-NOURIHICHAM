@@ -3,6 +3,7 @@
   require_once 'config.php';
 
   $lugares = $mysqli->query("SELECT * FROM places order by id asc")->fetch_all(MYSQLI_ASSOC);
+  $memorias = $mysqli->query("SELECT * FROM memories ORDER BY id asc")->fetch_all(MYSQLI_ASSOC);
 
   if(!isset($_SESSION['name'])){
     header("Location: login.php");
@@ -62,71 +63,38 @@
 
     <!-- Main Content -->
     <main class="container py-5">
+
+        <section id="mapa"></section>
         <section>
             <h2 class="h4 mb-4 text-dark">Muchas cosas</h2>
             <div class="row g-4">
-                <!-- Tarjeta de recuerdo 1 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="Viaje a la playa">
-                        <div class="card-body">
-                            <h5 class="card-title">Viaje a la playa</h5>
-                            <p class="card-text text-muted small mb-2">
-                                <i class="far fa-calendar me-1"></i>
-                                15 de Junio, 2023
-                            </p>
-                            <p class="card-text">Un día increíble con amigos en la playa de Cancún. Nadamos, comimos y vimos el atardecer juntos.</p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <small class="text-muted">
-                                <i class="far fa-user me-1"></i>
-                                Compartido por María García
-                            </small>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                    foreach ($memorias as $memoria){
+                        echo '
+                            
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="card h-100">
+                                    <a href="recuerdo_single.php?id='.$memoria['id'].'"><img src="'.$memoria['image_url'].'" class="card-img-top" alt="Viaje a la playa"></a>
+                                    <div class="card-body">
+                                        <a href="recuerdo_single.php?id='.$memoria['id'].'"><h5 class="card-title">'.$memoria['title'].'</h5></a>
+                                        <p class="card-text text-muted small mb-2">
+                                            <i class="far fa-calendar me-1"></i>
+                                            '.$memoria['date'].'
+                                        </p>
+                                        <p class="card-text">'.$memoria['description'].'</p>
+                                    </div>
+                                    <div class="card-footer bg-white">
+                                        <small class="text-muted">
+                                            <i class="far fa-user me-1"></i>
+                                            Compartido por '.$memoria['user'].'
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        ';
+                    }
+                ?>
 
-                <!-- Tarjeta de recuerdo 2 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="Fiesta de cumpleaños">
-                        <div class="card-body">
-                            <h5 class="card-title">Fiesta de cumpleaños</h5>
-                            <p class="card-text text-muted small mb-2">
-                                <i class="far fa-calendar me-1"></i>
-                                3 de Marzo, 2023
-                            </p>
-                            <p class="card-text">Celebramos el cumpleaños de Juan con una fiesta sorpresa. Su cara cuando entró fue inolvidable.</p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <small class="text-muted">
-                                <i class="far fa-user me-1"></i>
-                                Compartido por Carlos Rodríguez
-                            </small>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tarjeta de recuerdo 3 -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <img src="https://via.placeholder.com/500x300" class="card-img-top" alt="Graduación">
-                        <div class="card-body">
-                            <h5 class="card-title">Graduación</h5>
-                            <p class="card-text text-muted small mb-2">
-                                <i class="far fa-calendar me-1"></i>
-                                20 de Julio, 2023
-                            </p>
-                            <p class="card-text">Después de años de esfuerzo, finalmente nos graduamos. Un momento que quedará para siempre en nuestros corazones.</p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <small class="text-muted">
-                                <i class="far fa-user me-1"></i>
-                                Compartido por Ana López
-                            </small>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>

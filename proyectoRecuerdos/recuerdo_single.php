@@ -1,12 +1,29 @@
+<?php
+  session_start();
+  require_once 'config.php';
+
+  if(!isset($_SESSION['name']) || !isset($_GET['id'])){
+    header("Location: login.php");
+    exit;
+  }
+
+  $id = $_GET['id'];
+  
+  
+  $memoria = $mysqli->query("SELECT * FROM memories where id=$id")->fetch_all(MYSQLI_ASSOC);
+  $lugardememoria = $memoria[0]['place_id'];
+
+  $lugar = $mysqli->query("SELECT * FROM places where id=$lugardememoria")->fetch_all(MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalle del Recuerdo - Aplicación de Recuerdos</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+    <title>Detalle de <?= $memoria[0]['title'] ?> - Aplicación de Recuerdos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -79,7 +96,7 @@
     <header class="bg-white shadow-sm">
         <div class="container py-4">
             <div class="d-flex align-items-center">
-                <a href="index.html" class="text-primary text-decoration-none">
+                <a href="index.php" class="text-primary text-decoration-none">
                     <i class="fas fa-arrow-left me-2"></i>
                     <span>Volver</span>
                 </a>
@@ -97,19 +114,19 @@
                 <div id="memoryCarousel" class="carousel slide mb-4" data-bs-ride="false">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://via.placeholder.com/800x400?text=Playa+1" class="d-block w-100" alt="Imagen 1">
+                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 1">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://via.placeholder.com/800x400?text=Playa+2" class="d-block w-100" alt="Imagen 2">
+                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 2">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://via.placeholder.com/800x400?text=Playa+3" class="d-block w-100" alt="Imagen 3">
+                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 3">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://via.placeholder.com/800x400?text=Playa+4" class="d-block w-100" alt="Imagen 4">
+                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 4">
                         </div>
                         <div class="carousel-item">
-                            <img src="https://via.placeholder.com/800x400?text=Playa+5" class="d-block w-100" alt="Imagen 5">
+                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 5">
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#memoryCarousel" data-bs-slide="prev">
@@ -125,19 +142,19 @@
                 <!-- Miniaturas de imágenes -->
                 <div class="row g-2 mb-4">
                     <div class="col-2">
-                        <img src="https://via.placeholder.com/150x150?text=1" class="img-fluid thumbnail active" data-bs-target="#memoryCarousel" data-bs-slide-to="0" alt="Miniatura 1">
+                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail active" data-bs-target="#memoryCarousel" data-bs-slide-to="0" alt="Miniatura 1">
                     </div>
                     <div class="col-2">
-                        <img src="https://via.placeholder.com/150x150?text=2" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="1" alt="Miniatura 2">
+                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="1" alt="Miniatura 2">
                     </div>
                     <div class="col-2">
-                        <img src="https://via.placeholder.com/150x150?text=3" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="2" alt="Miniatura 3">
+                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="2" alt="Miniatura 3">
                     </div>
                     <div class="col-2">
-                        <img src="https://via.placeholder.com/150x150?text=4" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="3" alt="Miniatura 4">
+                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="3" alt="Miniatura 4">
                     </div>
                     <div class="col-2">
-                        <img src="https://via.placeholder.com/150x150?text=5" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="4" alt="Miniatura 5">
+                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="4" alt="Miniatura 5">
                     </div>
                     <div class="col-2">
                         <div class="d-flex justify-content-center align-items-center h-100 bg-light rounded">
@@ -149,92 +166,22 @@
                 </div>
 
                 <!-- Título y metadatos -->
-                <div class="card mb-4">
+                <div class="card">
                     <div class="card-body">
                         <h2 class="h3 mb-3">Viaje a la playa de Cancún</h2>
                         
                         <div class="memory-meta mb-3">
                             <i class="far fa-calendar"></i>
-                            <span>15 de Junio, 2023</span>
+                            <span><?= $memoria[0]['date'] ?></span>
                             
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Cancún, México</span>
+                            <span><?= $memoria[0]['title'] ?></span>
                             
                             <i class="far fa-user"></i>
-                            <span>María García</span>
+                            <span><?= $memoria[0]['user'] ?></span>
                         </div>
                         
-                        <div class="mb-3">
-                            <span class="location-tag">
-                                <i class="fas fa-umbrella-beach me-1"></i> Playa
-                            </span>
-                            <span class="location-tag">
-                                <i class="fas fa-sun me-1"></i> Verano
-                            </span>
-                            <span class="location-tag">
-                                <i class="fas fa-users me-1"></i> Amigos
-                            </span>
-                        </div>
-                        
-                        <p class="mb-0">Un día increíble con amigos en la playa de Cancún. Nadamos, comimos y vimos el atardecer juntos. El agua estaba cristalina y la arena blanca como nunca antes había visto. Disfrutamos de la comida local y bebidas refrescantes mientras compartíamos historias y risas bajo el sol.</p>
-                    </div>
-                </div>
-
-                <!-- Comentarios -->
-                <div class="card">
-                    <div class="card-header bg-white">
-                        <h3 class="h5 mb-0">Comentarios (3)</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="comment">
-                            <div class="d-flex mb-2">
-                                <div class="user-avatar me-2">
-                                    <span>CR</span>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0">Carlos Rodríguez</h6>
-                                    <small class="text-muted">Hace 2 días</small>
-                                </div>
-                            </div>
-                            <p class="mb-0">¡Qué recuerdos tan increíbles! Fue uno de los mejores viajes que hemos tenido juntos.</p>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="d-flex mb-2">
-                                <div class="user-avatar me-2">
-                                    <span>AL</span>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0">Ana López</h6>
-                                    <small class="text-muted">Hace 3 días</small>
-                                </div>
-                            </div>
-                            <p class="mb-0">Las fotos son hermosas. Me encantaría volver a ese lugar pronto.</p>
-                        </div>
-                        
-                        <div class="comment">
-                            <div class="d-flex mb-2">
-                                <div class="user-avatar me-2">
-                                    <span>JM</span>
-                                </div>
-                                <div>
-                                    <h6 class="mb-0">Juan Martínez</h6>
-                                    <small class="text-muted">Hace 5 días</small>
-                                </div>
-                            </div>
-                            <p class="mb-0">¡Ese atardecer fue mágico! Gracias por compartir estos momentos.</p>
-                        </div>
-                        
-                        <!-- Formulario de comentario -->
-                        <div class="mt-4">
-                            <h6>Deja un comentario</h6>
-                            <form>
-                                <div class="mb-3">
-                                    <textarea class="form-control" rows="3" placeholder="Escribe tu comentario..."></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Comentar</button>
-                            </form>
-                        </div>
+                        <p class="mb-0"><?= $memoria[0]['description'] ?></p>
                     </div>
                 </div>
             </div>
@@ -287,11 +234,11 @@
                     </div>
                     <div class="card-body p-0">
                         <!-- Mapa (placeholder) -->
-                        <img src="https://via.placeholder.com/400x300?text=Mapa+de+Cancún" class="img-fluid" alt="Mapa">
+                        <div id="mapa" style="height: 200px; width: 100%;"></div>
                         <div class="p-3">
                             <p class="mb-2">
                                 <i class="fas fa-map-marker-alt text-danger me-2"></i>
-                                Playa Delfines, Cancún, México
+                                <?= $memoria[0]['title'] ?>
                             </p>
                             <a href="#" class="btn btn-sm btn-outline-primary w-100">
                                 <i class="fas fa-directions me-1"></i> Ver en Google Maps
@@ -303,15 +250,7 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white py-4 mt-5 shadow-sm">
-        <div class="container text-center text-muted">
-            <p class="mb-0">© <script>document.write(new Date().getFullYear())</script> Aplicación de Recuerdos</p>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     <script>
         // Activar las miniaturas al hacer clic
@@ -348,5 +287,26 @@
             }
         });
     </script>
+
+        <!-- Mapa -->
+        <script>
+         var lati = <?php echo json_encode(floatval($lugar[0]['latitude'])); ?>;
+         var long = <?php echo json_encode(floatval($lugar[0]['longitude'])); ?>;
+
+        function initMap() {
+            const ubicacion = { lat: lati, lng: long };
+
+            const map = new google.maps.Map(document.getElementById("mapa"), {
+                zoom: 12,
+                center: ubicacion
+            });
+
+            new google.maps.Marker({
+                position: ubicacion,
+                map: map
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM7DchK1qvCFrDbp4XWw8O9fL3k0s3LX4&callback=initMap" async defer></script>
 </body>
 </html>

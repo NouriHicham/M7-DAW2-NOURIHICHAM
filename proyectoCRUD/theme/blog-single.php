@@ -13,10 +13,6 @@ if (isset($_GET['id'])) {
   exit;
 }
 
-echo '<pre>';
-print_r($comments);
-echo '</pre>';
-
 ?>
 
 <!DOCTYPE html>
@@ -143,37 +139,40 @@ echo '</pre>';
           <div class="p-5 mb-4">
             <?php
             
+            // Filtrar comentarios principales (aquellos sin comment_id)
             $comentariosPrincipales = array_filter($comments, function ($comment) {
-              return is_null($comment['reply_id']);
+                return is_null($comment['comment_id']);
             });
 
             foreach ($comentariosPrincipales as $comment) {
-              if (is_null($comment['comment_id'])) {
                 echo ' 
-                    <div class="media border-bottom py-4">
-                      <img src="images/user-1.jpg" class="img-fluid align-self-start mr-3" alt="">
-                      <div class="media-body">
+                <div class="media border-bottom py-4">
+                    <img src="images/user-1.jpg" class="img-fluid align-self-start mr-3" alt="">
+                    <div class="media-body">
                         <h5 class="mb-0 text-secondary">Carole Marvin.</h5>
                         <span class="mr-3">' . $comment['date'] . '</span>
                         <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
                         <p>' . $comment['description'] . '</p>';
-                foreach ($comment as $respuesta) {
-                  if ($respuesta['comment_id'] == $comment['id']) {
+
+                // Buscar respuestas para este comentario
+                $respuestas = array_filter($comments, function ($respuesta) use ($comment) {
+                    return $respuesta['comment_id'] == $comment['id'];
+                });
+
+                foreach ($respuestas as $respuesta) {
                     echo '
-                        <div class="media my-5">
-                          <img src="images/user-2.jpg" class="img-fluid align-self-start mr-3" alt="">
-                          <div class="media-body">
+                    <div class="media my-5">
+                        <img src="images/user-2.jpg" class="img-fluid align-self-start mr-3" alt="">
+                        <div class="media-body">
                             <h5 class="mb-0 text-secondary">Jaquan Rolfson.</h5>
                             <span class="mr-3">' . $respuesta['date'] . '</span>
                             <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
                             <p>' . $respuesta['description'] . '</p>
-                          </div>
                         </div>
-                    ';
-                  }
+                    </div>';
                 }
+
                 echo '</div></div>';
-              }
             }
             ?>
 

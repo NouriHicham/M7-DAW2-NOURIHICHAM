@@ -45,26 +45,20 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-white shadow-sm">
-        <div class="container py-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h3 mb-0 text-primary fw-bold">Recuerdos</h1>
-                <div>
-                    <?php
-                        echo 'Bienvenido, '. $_SESSION['name']. '. <a href="logout.php" class="btn btn-primary">Cerrar sesión</a>';
-                    ?>
-                    <a href="new_sitio.php" class="btn btn-primary">
-                        <i class="fas fa-plus-circle me-2"></i>
-                        <span>Añadir sitio</span>
-                    </a>
-                    <a href="new_recuerdo.php" class="btn btn-primary">
-                        <i class="fas fa-plus-circle me-2"></i>
-                        <span>Crear recuerdo</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+     <div class="bg-white shadow-sm">
+    <header class="d-flex flex-wrap justify-content-center py-3 container">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="fs-4"><i class="fas fa-map-marker-alt me-2"></i></span>
+        <span class="ms-1 fs-4">Recuerdos</span>
+      </a>
+
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="new_sitio.php" class="nav-link"><i class="fas fa-plus-circle me-2"></i><span>Añadir sitio</span></a></li>
+        <li class="nav-item"><a href="new_recuerdo.php" class="nav-link"><i class="fas fa-plus-circle me-2"></i><span>Crear recuerdo</span></a></li>
+        <li class="nav-item"><a href="logout.php" class="btn btn-outline-primary">Cerrar sesión</a></li>
+      </ul>
     </header>
+    </div>
 
     <!-- Main Content -->
     <main class="container py-5">

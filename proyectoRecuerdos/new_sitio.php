@@ -1,3 +1,39 @@
+<?php
+   session_start();
+   require_once 'config.php';
+
+
+    if(!isset($_SESSION['name'])){
+      header("Location: login.php");
+      exit;
+    }
+
+   if($_SERVER['REQUEST_METHOD']=='POST'){
+      $titulo = $_POST['titulo'];
+      $subtitulo = $_POST['subtitulo'];
+      $description = $_POST['descripcion'];
+
+      $hoy = date('Y-m-j');
+      $stmt = $mysqli->prepare("INSERT INTO NEWS (title, subtitle, thumbnail, description, new_date) VALUES (?,?,?,?,?)");
+      $stmt->bind_param("sssss", $titulo, $subtitulo, $foto, $description, $hoy);
+      
+      if($stmt->execute()){
+         $mensaje = 'Noticia añadida correctamente';
+         header('Location: ' . $_SERVER['PHP_SELF'] . '?success=1');
+      }else{
+         $message = 'Error al añadir la noticia: ' . $stmt->error;
+      }
+
+      // Verificar si hay un mensaje de éxito en la URL
+      if(isset($_GET['success']) && $_GET['success'] == 1) {
+         $message = 'Noticia añadida correctamente.';
+      }
+
+   }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

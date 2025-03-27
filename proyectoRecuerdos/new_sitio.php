@@ -11,10 +11,10 @@
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
       $titulo = $_POST['title'];
       $descripcion = $_POST['description'];
-      $latitud = $_POST['latitude'];
-      $longitud = $_POST['longitude'];
-  
-      $stmt = $mysqli->prepare("INSERT INTO places (name, descripcion, latitud, longitud) VALUES (?, ?, ?, ?)");
+      $latitud = floatval($_POST['latitude']);
+      $longitud = floatval($_POST['longitude']);
+
+      $stmt = $mysqli->prepare("INSERT INTO places (name, description, latitude, longitude) VALUES (?, ?, ?, ?)");
       $stmt->bind_param("ssdd", $titulo, $descripcion, $latitud, $longitud);
   
       if ($stmt->execute()) {
@@ -23,30 +23,6 @@
           echo "Error al guardar.";
       }
   }
-
-   if($_SERVER['REQUEST_METHOD']=='POST'){
-      $titulo = $_POST['titulo'];
-      $subtitulo = $_POST['subtitulo'];
-      $description = $_POST['descripcion'];
-
-      $hoy = date('Y-m-j');
-      $stmt = $mysqli->prepare("INSERT INTO NEWS (title, subtitle, thumbnail, description, new_date) VALUES (?,?,?,?,?)");
-      $stmt->bind_param("sssss", $titulo, $subtitulo, $foto, $description, $hoy);
-      
-      if($stmt->execute()){
-         $mensaje = 'Noticia añadida correctamente';
-         header('Location: ' . $_SERVER['PHP_SELF'] . '?success=1');
-      }else{
-         $message = 'Error al añadir la noticia: ' . $stmt->error;
-      }
-
-      // Verificar si hay un mensaje de éxito en la URL
-      if(isset($_GET['success']) && $_GET['success'] == 1) {
-         $message = 'Noticia añadida correctamente.';
-      }
-
-   }
-
 
 ?>
 
@@ -120,13 +96,13 @@
 
                             <div class="mb-3">
                                 <label for="location" class="form-label">Localización</label>
-                                <input type="text" class="form-control" id="location" name="location" placeholder="Buscar una dirección..." required>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="Buscar una dirección...">
                                 <div id="mapa"></div>
                             </div>
 
                             <!-- Campos ocultos para guardar latitud y longitud -->
-                            <input type="hidden" id="latitude" name="latitude">
-                            <input type="hidden" id="longitude" name="longitude">
+                            <input type="text" id="latitude" name="latitude" required placeholder="Latitud">
+                            <input type="text" id="longitude" name="longitude" required placeholder="Longitud">
 
                             <button type="submit" id="submitBtn" class="btn btn-primary w-100">Guardar recuerdo</button>
                         </form>

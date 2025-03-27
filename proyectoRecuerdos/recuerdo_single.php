@@ -15,6 +15,8 @@
 
   $lugar = $mysqli->query("SELECT * FROM places where id=$lugardememoria")->fetch_all(MYSQLI_ASSOC);
 
+  $imagenes = $mysqli->query("SELECT * FROM images WHERE memory_id=$id")->fetch_all(MYSQLI_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -113,21 +115,15 @@
                 <!-- Carrusel de imágenes -->
                 <div id="memoryCarousel" class="carousel slide mb-4" data-bs-ride="false">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 3">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 4">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://placecats.com/300/200" class="d-block w-100" alt="Imagen 5">
-                        </div>
+                      <?php
+                        foreach ($imagenes as $imagen) {
+                          echo '
+                            <div class="carousel-item active">
+                                <img src="'.$imagen['image_path'].'" class="d-block w-100" alt="recuerdo'.$imagen['id'].'">
+                            </div>
+                          ';
+                        }
+                      ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#memoryCarousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -141,28 +137,28 @@
 
                 <!-- Miniaturas de imágenes -->
                 <div class="row g-2 mb-4">
-                    <div class="col-2">
-                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail active" data-bs-target="#memoryCarousel" data-bs-slide-to="0" alt="Miniatura 1">
-                    </div>
-                    <div class="col-2">
-                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="1" alt="Miniatura 2">
-                    </div>
-                    <div class="col-2">
-                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="2" alt="Miniatura 3">
-                    </div>
-                    <div class="col-2">
-                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="3" alt="Miniatura 4">
-                    </div>
-                    <div class="col-2">
-                        <img src="https://placecats.com/300/200" class="img-fluid thumbnail" data-bs-target="#memoryCarousel" data-bs-slide-to="4" alt="Miniatura 5">
-                    </div>
-                    <div class="col-2">
-                        <div class="d-flex justify-content-center align-items-center h-100 bg-light rounded">
-                            <button class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
+                      <?php
+                        foreach ($imagenes as $imagen) {
+                          echo '
+                          <div class="col-2">
+                              <img src="'.$imagen['image_path'].'" class="img-fluid thumbnail active" data-bs-target="#memoryCarousel" data-bs-slide-to="0" alt="recuerdo'.$imagen['id'].'">
+                          </div>
+                          ';
+                        }
+                      ?>
+                    <!-- <div class="col-2"> -->
+                    
+                    <!-- <div class="d-flex justify-content-center align-items-center h-100 bg-light rounded">
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div> -->
+                    <!-- </div> -->
+                    <form action="upload_image.php" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="memory_id" value="<?= $id ?>">
+                        <input type="file" name="image" required>
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Subir imagen</button>
+                    </form>
                 </div>
 
                 <!-- Título y metadatos -->

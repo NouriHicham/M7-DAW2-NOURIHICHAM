@@ -1,3 +1,73 @@
+<?php
+  session_start();
+  require_once 'config.php';
+
+  $uploadDir = 'uploads/locations/portada/';
+
+  $user_id = $_SESSION['id'];
+  $grupo = $mysqli->query("SELECT * FROM group_users where user_id = $user_id")->fetch_all(MYSQLI_ASSOC);
+  $grupo = intval($grupo[0]['group_id']);
+
+  if(!isset($_SESSION['name'])){
+    header("Location: login.php");
+    exit;
+  }
+
+  if($_SERVER['REQUEST_METHOD']=='POST'){
+  $titulo = $_POST['titulo'];
+  $description = $_POST['descripcion'];
+  $user = $_SESSION['name'];
+  $place = $_POST['localizacion'];
+  $fecha = $_POST['fecha'];
+
+  //comprovar si se ha subido un archivo
+  // procesar el archivo subido
+  if(isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK){
+      // obtener info del archivo
+      $fileTmpPath = $_FILES['foto']['tmp_name'];
+      $fileName = $_FILES['foto']['name'];
+
+      //separar el nombre de la extension
+      $fileNameCmps = explode(".", $fileName);
+      $fileExtension = strtolower(end($fileNameCmps));
+
+      //definir las extensiones permitidas
+      $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+      //comprobar si la extension es permitida
+      if(in_array($fileExtension, $allowedExtensions)){
+        // renombrar el archivo para evitar duplicados
+        $newFileName = md5(time()). '.'. $fileExtension;
+
+        //ruta final en la carpeta
+        $dest_path = $uploadDir . $newFileName;
+
+        // mover el archivo del directorio temporal al directorio de subidas
+        if(move_uploaded_file($fileTmpPath, $dest_path)){
+            $foto = $dest_path;
+        } else {
+            echo '<p>Error al subir el archivo.</p>';
+            exit;
+        }
+      } else {
+        echo '<p>Formato de archivo no permitido.</p>';
+        exit;
+      }
+  }
+
+  $stmt = $mysqli->prepare("INSERT INTO memories (place_id, title, description, user, date, image_url, group_id) VALUES (?,?,?,?,?,?,?)");
+  $stmt->bind_param("isssssi", $place, $titulo, $description, $user, $fecha, $foto, $grupo);
+  
+  if($stmt->execute()){
+      echo '<p>Proyecto añadido correctamente.</p>';
+  }else{
+      echo '<p>Error al añadir el proyecto: '. $stmt->error.'</p>';
+  }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -45,10 +115,15 @@
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <form id="memoryForm">
+                        <form id="memoryForm" enctype="multipart/form-data" method="POST"> 
                             <div class="mb-3">
-                                <label for="title" class="form-label">Título</label>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Título del recuerdo" required>
+                                <label for="titulo" class="form-label">Título</label>
+                                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título del recuerdo" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="fecha" class="form-label">Fecha de la sucesion</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" required>
                             </div>
 
                             <div class="mb-3">
@@ -57,9 +132,21 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="author" class="form-label">Tu nombre</label>
-                                <input type="text" class="form-control" id="author" name="author" placeholder="¿Quién comparte este recuerdo?" required>
-                            </div>
+                              <label for="url" class="form-label">Localizacion</label>
+                              <select class="form-control" name="localizacion" id="localizacion" required>
+                                <option value="">Seleccione una localización...</option>
+                                <?php
+                                  $stmt = $mysqli->prepare("SELECT id, name FROM places ORDER BY name");
+                                  $stmt->execute();
+                                  $stmt->bind_result($id, $name);
+
+                                  while($stmt->fetch()){
+                                    echo '<option value="'.$id.'">'.$name.'</option>';
+                                  }
+
+                                  $stmt->close();
+                                ?>
+                              </select>
 
                             <div class="mb-4">
                                 <label for="fileInput" class="form-label">Imagen</label>
@@ -70,7 +157,7 @@
                                     <div class="text-muted">Haz clic para subir una imagen</div>
                                     <div id="fileName" class="text-success mt-2"></div>
                                 </label>
-                                <input type="file" id="fileInput" name="image" accept="image/*" class="d-none">
+                                <input type="file" id="fileInput" name="foto" accept="image/*" class="d-none">
                             </div>
 
                             <button type="submit" id="submitBtn" class="btn btn-primary w-100">Guardar recuerdo</button>
@@ -88,22 +175,6 @@
         document.getElementById('fileInput').addEventListener('change', function(e) {
             const fileName = e.target.files[0] ? e.target.files[0].name : '';
             document.getElementById('fileName').textContent = fileName ? 'Imagen seleccionada: ' + fileName : '';
-        });
-
-        // Manejar el envío del formulario
-        document.getElementById('memoryForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Guardando...';
-            
-            // Aquí conectarías con tu backend para guardar el recuerdo
-            // Simulando una petición
-            setTimeout(function() {
-                // Redirigir a la página principal después de guardar
-                window.location.href = 'index.html';
-            }, 1000);
         });
     </script>
 </body>

@@ -2,13 +2,17 @@
   session_start();
   require_once 'config.php';
 
-  $lugares = $mysqli->query("SELECT * FROM places order by id asc")->fetch_all(MYSQLI_ASSOC);
-  $memorias = $mysqli->query("SELECT * FROM memories ORDER BY id asc")->fetch_all(MYSQLI_ASSOC);
-
   if(!isset($_SESSION['name'])){
     header("Location: login.php");
     exit;
   }
+
+  $user_id = $_SESSION['id'];
+  $grupo = $mysqli->query("SELECT * FROM group_users where user_id = $user_id")->fetch_all(MYSQLI_ASSOC);
+  $grupo = intval($grupo[0]['group_id']);
+
+  $lugares = $mysqli->query("SELECT * FROM places order by id asc")->fetch_all(MYSQLI_ASSOC);
+  $memorias = $mysqli->query("SELECT * FROM memories  where group_id = $grupo ORDER BY id asc")->fetch_all(MYSQLI_ASSOC);
 
 ?>
 

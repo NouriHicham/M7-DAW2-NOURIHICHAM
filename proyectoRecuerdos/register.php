@@ -156,7 +156,7 @@
                         </div>
 
                         <button type="submit" id="submitBtn" class="btn btn-primary w-100 py-2 mb-3">
-                            Iniciar Sesión
+                            Registrarse
                         </button>
 
                         <div class="text-center">

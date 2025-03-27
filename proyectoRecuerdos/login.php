@@ -18,6 +18,7 @@
          //comprobar la contraseña es correcta
          if(password_verify($password, $user['password'])){
             //iniciar sesión
+            $_SESSION['id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
             

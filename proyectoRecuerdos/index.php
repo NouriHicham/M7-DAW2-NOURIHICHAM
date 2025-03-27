@@ -91,6 +91,14 @@
                                             <i class="far fa-user me-1"></i>
                                             Compartido por '.$memoria['user'].'
                                         </small>
+                                        
+                                        <a href="editar_recuerdo.php?id='.$memoria['id'].'" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-pencil-alt me-1"></i>
+                                        </a>
+                                        <a href="eliminar_recuerdo.php?id='.$memoria['id'].'" class="btn btn-sm btn-outline-danger">
+                                            <i class="fas fa-trash me-1"></i>
+                                        </a>
+                                        
                                     </div>
                                 </div>
                             </div>

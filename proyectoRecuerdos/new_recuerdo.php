@@ -15,7 +15,7 @@
 
   if($_SERVER['REQUEST_METHOD']=='POST'){
   $titulo = $_POST['titulo'];
-  $description = $_POST['descripcion'];
+  $description = $_POST['description'];
   $user = $_SESSION['name'];
   $place = $_POST['localizacion'];
   $fecha = $_POST['fecha'];

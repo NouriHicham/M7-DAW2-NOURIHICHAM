@@ -12,6 +12,7 @@
   
   $memoria = $mysqli->query("SELECT * FROM memories where id=$id")->fetch_all(MYSQLI_ASSOC);
   $lugardememoria = $memoria[0]['place_id'];
+  $portada = $memoria[0]['image_url'];
 
   $lugar = $mysqli->query("SELECT * FROM places where id=$lugardememoria")->fetch_all(MYSQLI_ASSOC);
 
@@ -116,6 +117,11 @@
                 <div id="memoryCarousel" class="carousel slide mb-4" data-bs-ride="false">
                     <div class="carousel-inner">
                       <?php
+                        echo '
+                          <div class="carousel-item active">
+                              <img src="'.$portada.'" class="d-block w-100" alt="recuerdo 0">
+                          </div>
+                        ';
                         foreach ($imagenes as $imagen) {
                           echo '
                             <div class="carousel-item active">
@@ -138,6 +144,11 @@
                 <!-- Miniaturas de imágenes -->
                 <div class="row g-2 mb-4">
                       <?php
+                        echo '
+                        <div class="col-2">
+                            <img src="'.$portada.'" class="img-fluid thumbnail active" data-bs-target="#memoryCarousel" data-bs-slide-to="0" alt="recuerdo 0">
+                        </div>
+                        ';
                         foreach ($imagenes as $imagen) {
                           echo '
                           <div class="col-2">

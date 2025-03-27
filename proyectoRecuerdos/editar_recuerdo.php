@@ -45,11 +45,21 @@ if (isset($_POST['editar_recuerdo'])) {
 
 <body>
   <!-- Header -->
-  <!-- Include your header here -->
+  <header class="bg-white shadow-sm">
+      <div class="container py-4">
+          <div class="d-flex align-items-center">
+              <a href="index.php" class="text-primary text-decoration-none">
+                  <i class="fas fa-arrow-left me-2"></i>
+                  <span>Volver</span>
+              </a>
+              <h1 class="h4 mb-0 mx-auto pe-5">Editar recuerdo</h1>
+          </div>
+      </div>
+  </header>
 
   <!-- Main Content -->
   <main class="container py-5">
-    <h2 class="h4 mb-4 text-dark">Editar Recuerdo</h2>
+    
     <form action="" method="POST">
       <div class="mb-3">
         <label for="title" class="form-label">Título</label>

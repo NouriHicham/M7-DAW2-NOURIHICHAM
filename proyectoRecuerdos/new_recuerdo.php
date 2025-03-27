@@ -59,7 +59,7 @@
   $stmt->bind_param("isssssi", $place, $titulo, $description, $user, $fecha, $foto, $grupo);
   
   if($stmt->execute()){
-      echo '<p>Proyecto añadido correctamente.</p>';
+      echo '<p>Proyecto añadido correctamente.'.$titulo.''.$fecha.'</p>';
   }else{
       echo '<p>Error al añadir el proyecto: '. $stmt->error.'</p>';
   }
@@ -115,7 +115,7 @@
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <form id="memoryForm" enctype="multipart/form-data" method="POST"> 
+                        <form enctype="multipart/form-data" method="POST"> 
                             <div class="mb-3">
                                 <label for="titulo" class="form-label">Título</label>
                                 <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título del recuerdo" required>

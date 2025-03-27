@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'config.php';
 
 if (isset($_GET['id'])) {
@@ -11,6 +12,37 @@ if (isset($_GET['id'])) {
 } else {
   header("Location: blog.php");
   exit;
+}
+
+if($_SERVER['REQUEST_METHOD']=='POST'){
+if(isset($_SESSION['id'])){
+    $user_id = $_SESSION['id'];
+    $new_id = $_GET['id'];
+    $hoy = date('Y-m-j');
+
+    if(isset($_POST['comment'])) {
+      $description = $_POST['comment'];
+
+      $stmt = $mysqli->prepare("INSERT INTO COMMENTS (description, user_id, new_id, date) VALUES (?,?,?,?)");
+      $stmt->bind_param("siis", $description, $user_id, $new_id, $hoy);
+    } elseif(isset($_POST['reply'])) {
+      $description = $_POST['reply'];
+      $comment_id = intval($_POST['reply_id']);
+
+      $stmt = $mysqli->prepare("INSERT INTO COMMENTS (description, user_id, new_id, comment_id, date) VALUES (?,?,?,?,?)");
+      $stmt->bind_param("siiis", $description, $user_id, $new_id , $comment_id, $hoy);
+    }
+    
+    if($stmt->execute()){
+      echo '<p>Comentario añadido correctamente.</p>';
+      header("Refresh:0");
+    }else{
+      echo '<p>Error al añadir el comentario: '. $stmt->error.'</p>';
+    }
+}else{
+  echo '<p>Debes iniciar sesión para comentar.</p>';
+  exit;
+}
 }
 
 ?>
@@ -138,10 +170,9 @@ if (isset($_GET['id'])) {
         <div class="col-lg-10 mx-auto">
           <div class="p-5 mb-4">
             <?php
-            
-            // Filtrar comentarios principales (aquellos sin comment_id)
-            $comentariosPrincipales = array_filter($comments, function ($comment) {
-                return is_null($comment['comment_id']);
+              // Filtrar comentarios principales (aquellos sin comment_id)
+              $comentariosPrincipales = array_filter($comments, function ($comment) {
+              return is_null($comment['comment_id']);
             });
 
             foreach ($comentariosPrincipales as $comment) {
@@ -151,8 +182,18 @@ if (isset($_GET['id'])) {
                     <div class="media-body">
                         <h5 class="mb-0 text-secondary">Carole Marvin.</h5>
                         <span class="mr-3">' . $comment['date'] . '</span>
-                        <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
-                        <p>' . $comment['description'] . '</p>';
+                        <a href="#" class="btn btn-transparent py-1 px-2" onclick="showReplyForm(' . $comment['id'] . '); return false;"><i class="ti-share-alt"></i> Reply</a>
+                        <p>' . $comment['description'] . '</p>
+                        
+                        <!-- Formulario de respuesta (inicialmente oculto) -->
+                        <div id="replyForm_' . $comment['id'] . '" style="display: none;">
+                            <form action="" method="post">
+                                <input type="hidden" name="reply_id" value="' . $comment['id'] . '">
+                                <textarea name="reply" class="form-control mb-2" placeholder="Escriba su respuesta" required></textarea>
+                                <button type="submit" class="btn btn-primary btn-sm">Enviar</button>
+                            </form>
+                        </div>'
+                        ;
 
                 // Buscar respuestas para este comentario
                 $respuestas = array_filter($comments, function ($respuesta) use ($comment) {
@@ -166,7 +207,6 @@ if (isset($_GET['id'])) {
                         <div class="media-body">
                             <h5 class="mb-0 text-secondary">Jaquan Rolfson.</h5>
                             <span class="mr-3">' . $respuesta['date'] . '</span>
-                            <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
                             <p>' . $respuesta['description'] . '</p>
                         </div>
                     </div>';
@@ -178,15 +218,9 @@ if (isset($_GET['id'])) {
 
             
           <h4 class="mt-3 mb-3 pb-3 text-secondary">Leave a Comment</h4>
-          <form action="#" class="row">
+          <form action="" class="row" method="post">
             <div class="col-12">
               <textarea name="comment" id="comment" placeholder="Message" class="form-control mb-4 border"></textarea>
-            </div>
-            <div class="col-md-5">
-              <input type="text" name="name" id="name" class="form-control mb-4 mb-lg-0 border" placeholder="Name">
-            </div>
-            <div class="col-md-5">
-              <input type="email" name="Email" id="Email" class="form-control mb-4 mb-lg-0 border" placeholder="Email">
             </div>
             <div class="col-md-2">
               <button type="submit" class="btn btn-secondary rounded-0">Send</button>
@@ -260,9 +294,7 @@ if (isset($_GET['id'])) {
           <div class="col-md-6">
             <div class="bg-white p-4">
               <h3>Contact us</h3>
-              <form action="#">
-                <input type="text" id="name" name="name" class="form-control mb-4 px-0" placeholder="Full name">
-                <input type="text" id="name" name="name" class="form-control mb-4 px-0" placeholder="Email address">
+              <form action="" method="post">
                 <textarea name="message" id="message" class="form-control mb-4 px-0" placeholder="Message"></textarea>
                 <button class="btn btn-primary" type="submit">Send</button>
               </form>
@@ -314,6 +346,17 @@ if (isset($_GET['id'])) {
 
   <!-- Main Script -->
   <script src="js/script.js"></script>
+
+  <script>
+  function showReplyForm(commentId) {
+      var replyForm = document.getElementById('replyForm_' + commentId);
+      if (replyForm.style.display === 'none') {
+          replyForm.style.display = 'block';
+      } else {
+          replyForm.style.display = 'none';
+      }
+  }
+  </script>
 
 </body>
 

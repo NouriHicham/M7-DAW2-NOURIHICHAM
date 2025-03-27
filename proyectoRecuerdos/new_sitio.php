@@ -8,6 +8,22 @@
       exit;
     }
 
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $titulo = $_POST['title'];
+      $descripcion = $_POST['description'];
+      $latitud = $_POST['latitude'];
+      $longitud = $_POST['longitude'];
+  
+      $stmt = $mysqli->prepare("INSERT INTO places (name, descripcion, latitud, longitud) VALUES (?, ?, ?, ?)");
+      $stmt->bind_param("ssdd", $titulo, $descripcion, $latitud, $longitud);
+  
+      if ($stmt->execute()) {
+          echo "Localización guardada.";
+      } else {
+          echo "Error al guardar.";
+      }
+  }
+
    if($_SERVER['REQUEST_METHOD']=='POST'){
       $titulo = $_POST['titulo'];
       $subtitulo = $_POST['subtitulo'];
@@ -63,6 +79,12 @@
             color: black;
          }
 
+         #mapa {
+            height: 300px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -85,15 +107,10 @@
             <div class="col-12 col-md-10 col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <form id="memoryForm">
+                        <form method="post" action="">
                             <div class="mb-3">
                                 <label for="title" class="form-label">Título</label>
                                 <input type="text" class="form-control" id="title" name="title" placeholder="Título del recuerdo" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="description" class="form-label">Localización</label>
-                                <textarea class="form-control" id="description" name="description" rows="5" placeholder="Describe este momento especial..." required></textarea>
                             </div>
 
                             <div class="mb-3">
@@ -101,10 +118,15 @@
                                 <input type="text" class="form-control" id="description" name="description" placeholder="Una pequeña descripción" required>
                             </div>
 
-                            <div class="mb-4">
-                                <label for="fileInput" class="form-label">Portada</label><br>
-                                <input type="file" id="fileInput" name="image" accept="image/*">
+                            <div class="mb-3">
+                                <label for="location" class="form-label">Localización</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="Buscar una dirección..." required>
+                                <div id="mapa"></div>
                             </div>
+
+                            <!-- Campos ocultos para guardar latitud y longitud -->
+                            <input type="hidden" id="latitude" name="latitude">
+                            <input type="hidden" id="longitude" name="longitude">
 
                             <button type="submit" id="submitBtn" class="btn btn-primary w-100">Guardar recuerdo</button>
                         </form>
@@ -116,8 +138,58 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
-    <script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM7DchK1qvCFrDbp4XWw8O9fL3k0s3LX4&callback=initMap&libraries=places" async defer></script>
 
+    <script>
+        let map, marker, autocomplete;
+
+        function initMap() {
+            // Centro inicial del mapa
+            const defaultLocation = { lat: 41.436849, lng: 2.218056 }; // Ejemplo: casa
+
+            // Crear el mapa
+            map = new google.maps.Map(document.getElementById("mapa"), {
+                center: defaultLocation,
+                zoom: 12,
+            });
+
+            // Crear marcador inicial
+            marker = new google.maps.Marker({
+                position: defaultLocation,
+                map: map,
+                draggable: true
+            });
+
+            // Escuchar el movimiento del marcador y actualizar campos ocultos
+            google.maps.event.addListener(marker, "dragend", function () {
+                const position = marker.getPosition();
+                document.getElementById("latitude").value = position.lat();
+                document.getElementById("longitude").value = position.lng();
+            });
+
+            // Inicializa Autocomplete correctamente
+            const input = document.getElementById("location");
+            autocomplete = new google.maps.places.Autocomplete(input, {
+                fields: ["geometry", "name"], // Usa "geometry" para obtener lat/lng
+            });
+
+            // Escuchar cuando el usuario seleccione una ubicación
+            autocomplete.addListener("place_changed", function () {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    console.log("No se encontró coordenadas para la ubicación.");
+                    return;
+                }
+
+                // Mover el mapa y el marcador a la nueva ubicación
+                map.setCenter(place.geometry.location);
+                marker.setPosition(place.geometry.location);
+
+                // Guardar coordenadas
+                document.getElementById("latitude").value = place.geometry.location.lat();
+                document.getElementById("longitude").value = place.geometry.location.lng();
+            });
+        }
     </script>
 </body>
 </html>

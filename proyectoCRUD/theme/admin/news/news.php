@@ -89,13 +89,6 @@
       Añadir noticia
    </button>
 
-   <?php
-      // Mostrar el mensaje si existe
-      if($message) {
-         echo '<div class="alert alert-success">' . $message . '</div>';
-      }
-   ?>
-
    <!-- Modal con Formulario -->
    <div class="modal fade" id="miModal" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -154,7 +147,7 @@
                echo "<td>".$noticia['title']."</td>";
                echo "<td>".$noticia['subtitle']."</td>";
                echo "<td>".substr($noticia['description'],0,40)." ...</td>";
-               echo "<td><img src='../../".$noticia['thumbnail']."' alt='Foto noticia".$noticia['id']."' height='100px' width='auto'></td>";
+               echo "<td><img src='".$noticia['thumbnail']."' alt='Foto noticia".$noticia['id']."' height='100px' width='auto'></td>";
                echo "<td>".$noticia['new_date']."</td>";
                echo '<td><a href="delete-new.php?id='.$noticia['id'].'" class="btn btn-outline-danger" style="text-decoration: none;">🗑️</a></td>';
                echo '<td><a href="edit-new.php?id='.$noticia['id'].'" class="btn btn-outline-success" style="text-decoration: none;">🖊️</a></td>';

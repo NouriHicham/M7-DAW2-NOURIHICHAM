@@ -2,7 +2,7 @@
   session_start();
   require_once 'config.php';
 
-  $testimonios = $mysqli->query("SELECT * FROM TESTIMONIALS order by id desc")->fetch_all(MYSQLI_ASSOC);
+  $testimonios = $mysqli->query("SELECT * FROM TESTIMONIALS order by id asc")->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -241,11 +241,11 @@
                   <div class="slide">
                     <div class="card text-center">
                       <div class="card-body px-5 py-4">
-                        <img src="'.$testimonio['photo'].'" alt="user-1" class="img-fluid rounded-circle mb-4" style=" height: 270px; width: auto;">
+                        <img src="'.ltrim($testimonio['photo'], "../../").'" alt="user-1" class="img-fluid rounded-circle mb-4" style=" height: 270px; width: auto;">
                         <h4 class="text-secondary">'.$testimonio['name'].' '.$testimonio['surname'].'</h4>
                         <p>“'.$testimonio['description'].'”</p>
               ';
-              for($i=1; $i<=$testimonial['rating']; $i++){
+              for($i=1; $i<=$testimonio['rating']; $i++){
                 echo '<span>⭐</span>';
               }
               echo '

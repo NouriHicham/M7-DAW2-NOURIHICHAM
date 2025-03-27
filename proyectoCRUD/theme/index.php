@@ -88,7 +88,7 @@
                           <a class="dropdown-item" href="logout.php">Cerrar sesion</a>
                         ';
                     if($_SESSION['role'] == 'admin'){
-                      echo '<a class="dropdown-item" href="/admin/admin.php">Panel de administrador</a>';
+                      echo '<a class="dropdown-item" href="admin/admin.php">Panel de administrador</a>';
                     }
                   echo '</div></li>';
                   }else{
@@ -288,7 +288,7 @@
                   <img src="images/blog/'.$noticia['thumbnail'].'" alt="post-thumb" class="card-img-top mb-2">
                   <div class="card-body p-0">
                     <time>'.$noticia['new_date'].'</time>
-                    <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">'.$noticia['title'].'</a>
+                    <a href="blog-single.php?id='.$noticia['id'].'" class="h4 card-title d-block my-3 text-dark hover-text-underline">'.$noticia['title'].'</a>
                     <a href="blog-single.php?id='.$noticia['id'].'" class="btn btn-transparent">Read more</a>
                   </div>
                 </article>

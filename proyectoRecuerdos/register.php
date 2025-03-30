@@ -13,7 +13,7 @@
       $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
       //preparar la consulta SQL para evitar SQL Injection
-      $stmt = $mysqli->prepare("INSERT INTO users (name, email, password) VALUES (?,?,?)");
+      $stmt = $mysqli->prepare("INSERT INTO users (name, email, password) VALUES (?,?,?);");
 
       //comprovar que la preparación ha sido exitosa
       if(!$stmt){
@@ -25,8 +25,22 @@
 
       //ejecutar la consulta
       if($stmt->execute()){
-         //mostrar un mensaje de confirmación
-         echo '<script>alert("Registro exitoso.");</script>';
+        // Obtener el ID del usuario recién creado
+        $userId = $mysqli->insert_id;
+        //grupo monito
+        $groupId = 1;
+
+        // Preparar la consulta para insertar en la tabla group_users
+        $stmt = $mysqli->prepare("INSERT INTO group_users (user_id, group_id) VALUES (?, ?);");
+        $stmt->bind_param("ii", $userId, $groupId);
+
+
+         // Ejecutar la consulta
+        if ($stmt->execute()) {
+          echo 'Usuario registrado exitosamente.'; //y añadido al grupo monito por defecto
+        } else {
+          echo 'Error al agregar el usuario al grupo: ' . $stmt->error;
+        }
       } else {
          //mostrar un mensaje de error
          echo '<alert>Error al registrar: '. $stmt->error.'</alert>';

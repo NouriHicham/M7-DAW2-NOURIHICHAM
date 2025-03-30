@@ -138,32 +138,32 @@
 
             // Escuchar el movimiento del marcador y actualizar campos ocultos
             google.maps.event.addListener(marker, "dragend", function () {
-                const position = marker.getPosition();
-                document.getElementById("latitude").value = position.lat();
-                document.getElementById("longitude").value = position.lng();
+              const position = marker.getPosition();
+              document.getElementById("latitude").value = position.lat();
+              document.getElementById("longitude").value = position.lng();
             });
 
             // Inicializa Autocomplete correctamente
             const input = document.getElementById("location");
             autocomplete = new google.maps.places.Autocomplete(input, {
-                fields: ["geometry", "name"], // Usa "geometry" para obtener lat/lng
+              fields: ["geometry", "name"], // Usa "geometry" para obtener lat/lng
             });
 
             // Escuchar cuando el usuario seleccione una ubicación
             autocomplete.addListener("place_changed", function () {
-                const place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    console.log("No se encontró coordenadas para la ubicación.");
-                    return;
-                }
+              const place = autocomplete.getPlace();
+              if (!place.geometry) {
+                console.log("No se encontró coordenadas para la ubicación.");
+                return;
+              }
 
-                // Mover el mapa y el marcador a la nueva ubicación
-                map.setCenter(place.geometry.location);
-                marker.setPosition(place.geometry.location);
+              // Mover el mapa y el marcador a la nueva ubicación
+              map.setCenter(place.geometry.location);
+              marker.setPosition(place.geometry.location);
 
-                // Guardar coordenadas
-                document.getElementById("latitude").value = place.geometry.location.lat();
-                document.getElementById("longitude").value = place.geometry.location.lng();
+              // Guardar coordenadas
+              document.getElementById("latitude").value = place.geometry.location.lat();
+              document.getElementById("longitude").value = place.geometry.location.lng();
             });
         }
     </script>
